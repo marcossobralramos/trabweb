@@ -1,18 +1,5 @@
 from django.db import models
 
-# Create your models here.
-class Usuarios(models.Model):
-    
-        idUsuario = models.IntegerField(primary_key = True)
-        usuario = models.CharField(max_length=50)
-        nome = models.CharField(max_length=50)
-        senha = models.CharField(max_length=22)
-        confirmaSenha = models.CharField( max_length=22)
-        
-        def __str__(self):
-            """String for representing the Model object."""
-            return self.usuario
-   
 class Empresas(models.Model):
     
         idEmpresas = models.IntegerField(primary_key = True)
