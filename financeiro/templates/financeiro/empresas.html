@@ -1,0 +1,72 @@
+{% extends 'financeiro/extends/pagination.html' %}
+
+{% block content_items %}
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-header border-0">
+                <h3 class="mb-0">Lista de {{ page.title }}</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">CPF/CNPJ</th>
+                        <th scope="col">Titular</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col"><i>Ações</i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for empresa in items.object_list %}
+                        <th scope="row">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{ empresa.idEmpresas }}</span>
+                            </div>
+                        </th>
+                        <td>
+                            {{ empresa.identificacao }}
+                        </td>
+                        <td>
+                            {% if empresa.cpf %}
+                            {{ empresa.cpf }}
+                            {% else %}
+                            {{ empresa.cnpj }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ empresa.nomeTitular }}
+                        </td>
+                        <td>
+                            {{ empresa.telefone }}
+                        </td>
+                        <td>
+                            {{ empresa.email }}
+                        </td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item" href="#">Visualizar</a>
+                                    <a class="dropdown-item" href="#">Editar</a>
+                                    <a class="dropdown-item" href="#">Deletar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
