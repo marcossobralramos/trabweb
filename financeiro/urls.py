@@ -12,4 +12,6 @@ urlpatterns = [
     path('clientes/<int:page_index>', views.clientes_pagination, name='clientes'),
     path('fornecedores/', views.fornecedores, name='fornecedores'),
     path('fornecedores/<int:page_index>', views.fornecedores_pagination, name='fornecedores'),
+    path('contasbancarias/', views.contasbancarias, name='contasbancarias'),
+    path('contasbancarias/<int:page_index>', views.contas_bancarias_pagination, name='contasbancarias'),
 ]

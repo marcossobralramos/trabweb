@@ -13,51 +13,46 @@
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Idenfificacao</th>
-                        <th scope="col">CPF/CNPJ</th>
-                        <th scope="col">inscricaoEstadual</th>
-                        <th scope="col">inscricaoMunicipal</th>
-                        <th scope="col"><i>AÃ§Ãµes</i></th>
-                        
+                        <th scope="col">Classificacao</th>
+                        <th scope="col">NumeroConta</th>
+                        <th scope="col">NumeroAgencia</th>
+                        <th scope="col">DataSaldoInicial</th>
+                        <th scope="col">SaldoInicial</th>
+                        <th scope="col">Caixa</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col"><i>Ações</i></th>
                     </tr>
                     </thead>
                     <tbody>
                     {% if items.object_list.count > 0 %}
-                    {% for fornecedores in items.object_list %}
+                    {% for contasbancarias in items.object_list %}
                     <tr>
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ fornecedores.idFornecedores }}</span>
+                                <span class="mb-0 text-sm">{{ contasbancarias.idContasBancarias }}</span>
                             </div>
                         </th>
-                     
-                        <td>
-                            {{ fornecedores.identificacao }}
-                        </td>
                          <td>
-                            {% if fornecedores.cpf %}
-                            {{ fornecedores.cpf }}
-                            {% else %}
-                            {{ fornecedores.cnpj }}
-                            {% endif %}
+                            {{ contasbancarias.classificacao }}
                         </td>
                         <td>
-                            {{ fornecedores.classificacao }}
+                            {{ contasbancarias.numeroConta }}
                         </td>
                         <td>
-                            {{ fornecedores.numeroConta }}
+                            {{ contasbancarias.numeroAgencia }}
                         </td>
+                         <td>
+                            {{ contasbancarias.DataSaldoInicial }}
+                        </td>
+                        
                         <td>
-                            {{ fornecedores.numeroAgencia }}
+                            {{ contasbancarias.saldoInicial }}
                         </td>
                          <td>
-                            {{ fornecedores.DataSaldoInicial }}
+                            {{ contasbancarias.Caixa }}
                         </td>
                          <td>
-                            {{ fornecedores.Caixa }}
-                        </td>
-                         <td>
-                            {{ fornecedores.Banco }}
+                            {{ contasbancarias.Banco }}
                         </td>
                         <td class="text-right">
                             <div class="dropdown">
@@ -81,4 +76,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %
