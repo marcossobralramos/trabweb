@@ -12,47 +12,56 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">ID Plano de Contas</th>
+                        <th scope="col">ID Contas Bancarias</th>
+                        <th scope="col">Tipo Conta</th>
                         <th scope="col">Classificacao</th>
-                        <th scope="col">NumeroConta</th>
-                        <th scope="col">NumeroAgencia</th>
-                        <th scope="col">DataSaldoInicial</th>
-                        <th scope="col">SaldoInicial</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Fornecedor</th>
+                        <th scope="col">EntradaRecurso</th>
+                        <th scope="col">SaidaRecurso</th>
                         <th scope="col">Caixa</th>
                         <th scope="col">Banco</th>
                         <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    
-                    {% for contasbancarias in items.object_list %}
+                     
+                
+                    {% for planocontas in items.object_list %}
                     <tr>
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ contasbancarias.idContasBancarias }}</span>
+                                <span class="mb-0 text-sm">{{ planocontas.idPlanodeContas }}</span>
                             </div>
                         </th>
-                         <td>
-                            {{ contasbancarias.classificacao }}
-                        </td>
                         <td>
-                            {{ contasbancarias.numeroConta }}
-                        </td>
-                        <td>
-                            {{ contasbancarias.numeroAgencia }}
+                            {{ planocontas.idContasBancarias }}
                         </td>
                          <td>
-                            {{ contasbancarias.DataSaldoInicial }}
+                            {{ planocontas.tipoConta }}
+                        </td>
+                        <td>
+                            {{ planocontas.classificacao }}
+                        </td>
+                        <td>
+                            {{ planocontas.cliente }}
+                        </td>
+                         <td>
+                            {{ planocontas.fornecedor }}
                         </td>
                         
                         <td>
-                            {{ contasbancarias.saldoInicial }}
+                            {{ planocontas.entradaRecurso }}
                         </td>
                          <td>
-                            {{ contasbancarias.Caixa }}
+                            {{ planocontas.saidaRecurso }}
                         </td>
                          <td>
-                            {{ contasbancarias.Banco }}
+                            {{ planocontas.Caixa }}
+                        </td>
+                         <td>
+                            {{ planocontas.Banco }}
                         </td>
                         <td class="text-right">
                             <div class="dropdown">

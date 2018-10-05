@@ -12,48 +12,26 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Classificacao</th>
-                        <th scope="col">NumeroConta</th>
-                        <th scope="col">NumeroAgencia</th>
-                        <th scope="col">DataSaldoInicial</th>
-                        <th scope="col">SaldoInicial</th>
-                        <th scope="col">Caixa</th>
-                        <th scope="col">Banco</th>
+                        
+                        <th scope="col">ID Formas Pagamento</th>
+                        <th scope="col">Descricao</th>
                         <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    
-                    {% for contasbancarias in items.object_list %}
+                     
+                
+                    {% for formaspagamento in items.object_list %}
                     <tr>
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ contasbancarias.idContasBancarias }}</span>
+                                <span class="mb-0 text-sm">{{ formaspagamento.idFormasPagamento }}</span>
                             </div>
                         </th>
-                         <td>
-                            {{ contasbancarias.classificacao }}
-                        </td>
                         <td>
-                            {{ contasbancarias.numeroConta }}
+                            {{ formaspagamento.descricao }}
                         </td>
-                        <td>
-                            {{ contasbancarias.numeroAgencia }}
-                        </td>
-                         <td>
-                            {{ contasbancarias.DataSaldoInicial }}
-                        </td>
-                        
-                        <td>
-                            {{ contasbancarias.saldoInicial }}
-                        </td>
-                         <td>
-                            {{ contasbancarias.Caixa }}
-                        </td>
-                         <td>
-                            {{ contasbancarias.Banco }}
-                        </td>
+                       
                         <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
