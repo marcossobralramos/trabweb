@@ -12,53 +12,26 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Idenfificacao</th>
-                        <th scope="col">CPF/CNPJ</th>
-                        <th scope="col">inscricaoEstadual</th>
-                        <th scope="col">inscricaoMunicipal</th>
-                        <th scope="col"><i>Ações</i></th>
                         
+                        <th scope="col">ID Formas Pagamento</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% if items.object_list.count > 0 %}
-                    {% for fornecedores in items.object_list %}
+                     
+                
+                    {% for formaspagamento in items.object_list %}
                     <tr>
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ fornecedores.idFornecedores }}</span>
+                                <span class="mb-0 text-sm">{{ formaspagamento.idFormasPagamento }}</span>
                             </div>
                         </th>
-                     
                         <td>
-                            {{ fornecedores.identificacao }}
+                            {{ formaspagamento.descricao }}
                         </td>
-                         <td>
-                            {% if fornecedores.cpf %}
-                            {{ fornecedores.cpf }}
-                            {% else %}
-                            {{ fornecedores.cnpj }}
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ fornecedores.classificacao }}
-                        </td>
-                        <td>
-                            {{ fornecedores.numeroConta }}
-                        </td>
-                        <td>
-                            {{ fornecedores.numeroAgencia }}
-                        </td>
-                         <td>
-                            {{ fornecedores.DataSaldoInicial }}
-                        </td>
-                         <td>
-                            {{ fornecedores.Caixa }}
-                        </td>
-                         <td>
-                            {{ fornecedores.Banco }}
-                        </td>
+                       
                         <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -74,7 +47,7 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    {% endif %}
+                
                     </tbody>
                 </table>
             </div>

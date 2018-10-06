@@ -3,8 +3,11 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from .models import Empresas
 from .models import Clientes
-from .models import Fornecedores2
-
+from .models import Fornecedores
+from .models import ContasBancarias
+from .models import PlanodeContas
+from .models import FormasPagamento
+from .models import Tesouraria
 # pagination
 items_for_page = 10
 
@@ -90,7 +93,7 @@ def clientes_pagination(request, page_index):
     return render(request, 'financeiro/clientes.html', context)
 
 def fornecedores(request):
-    return clientes_pagination(request, 1)
+    return fornecedores_pagination(request, 1)
 
 def fornecedores_pagination(request, page_index):
 
@@ -100,7 +103,7 @@ def fornecedores_pagination(request, page_index):
     try:
         fornecedores = paginator.page(page_index)
     except (EmptyPage, InvalidPage):
-        clientes = paginator.page(paginator.num_pages)
+        fornecedores = paginator.page(paginator.num_pages)
 
     page = {
         "href": "/fornecedores",
@@ -113,11 +116,130 @@ def fornecedores_pagination(request, page_index):
         "num_pages": paginator.num_pages,
         "total_items": len(list_fornecedor),
         "user": get_info_user_auth(),
-        "items": clientes,
+        "items": fornecedores,
         "cards": get_info_cards_top(),
     }
 
     return render(request, 'financeiro/fornecedores.html', context)
+
+def contas_bancarias(request):
+    return contas_bancarias_pagination(request, 1)
+
+def contas_bancarias_pagination(request, page_index):
+
+    list_contas_bancarias = ContasBancarias.objects.all()
+    paginator = Paginator(list_contas_bancarias, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        contasbancarias = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        contasbancarias = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/contas-bancarias",
+        "title": "ContasBancarias",
+    }
+
+    context = {
+        "descripton": "ContasBancarias",
+        "page" : page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_contas_bancarias),
+        "user": get_info_user_auth(),
+        "items": contasbancarias,
+        "cards": get_info_cards_top(),
+    }
+    return render(request, 'financeiro/contasbancarias.html', context)
+    
+def plano_de_contas(request):
+    return plano_de_contas_pagination(request, 1)
+
+def plano_de_contas_pagination(request, page_index):
+
+    list_plano_contas = PlanodeContas.objects.all()
+    paginator = Paginator(list_plano_contas, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        planocontas = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        planocontas = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/planos-contas",
+        "title": "PlanoContas",
+    }
+
+    context = {
+        "descripton": "PlanoContas",
+        "page" : page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_plano_contas),
+        "user": get_info_user_auth(),
+        "items": planocontas,
+        "cards": get_info_cards_top(),
+    }
+    return render(request, 'financeiro/planocontas.html', context)
+
+
+def formas_pagamento(request):
+    return formas_pagamento_pagination(request, 1)
+
+def formas_pagamento_pagination(request, page_index):
+
+    list_formas_pagamento = FormasPagamento.objects.all()
+    paginator = Paginator(list_formas_pagamento, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        formaspagamento = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        formaspagamento = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/formas-pagamento",
+        "title": "FormasPagamento",
+    }
+
+    context = {
+        "descripton": "FormasPagamento",
+        "page" : page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_formas_pagamento),
+        "user": get_info_user_auth(),
+        "items": formaspagamento,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/formaspagamento.html', context)
+
+def tesouraria(request):
+    return tesouraria_pagination(request, 1)
+
+def tesouraria_pagination(request, page_index):
+
+    list_tesouraria = Tesouraria.objects.all()
+    paginator = Paginator(list_tesouraria, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        tesouraria = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        tesouraria = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/tesouraria",
+        "title": "Tesouraria",
+    }
+
+    context = {
+        "descripton": "Tesouraria",
+        "page" : page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_tesouraria),
+        "user": get_info_user_auth(),
+        "items": tesouraria,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/tesouraria.html', context)
 
 def get_info_user_auth():
     return {

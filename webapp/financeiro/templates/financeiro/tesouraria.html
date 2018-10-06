@@ -11,54 +11,63 @@
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
+      
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Idenfificacao</th>
-                        <th scope="col">CPF/CNPJ</th>
-                        <th scope="col">inscricaoEstadual</th>
-                        <th scope="col">inscricaoMunicipal</th>
-                        <th scope="col"><i>Ações</i></th>
                         
+                        <th scope="col">ID Tesouraria</th>
+                        <th scope="col">ID Cliente</th>
+                        <th scope="col">ID Empresa</th>
+                        <th scope="col">ID Plano de Contas</th>
+                        <th scope="col">ID Formas Pagamento</th>
+                        <th scope="col">ID Fornecedores</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Data de emissaos</th>
+                        <th scope="col">Data de vencimento</th>
+                        <th scope="col">Data de disponibilidade</th>
+
+                       
+                        <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% if items.object_list.count > 0 %}
-                    {% for fornecedores in items.object_list %}
+
+                
+                   {% for tesouraria in items.object_list %}
                     <tr>
                         <th scope="row">
-                            <div class="media-body">
-                                <span class="mb-0 text-sm">{{ fornecedores.idFornecedores }}</span>
+                            <div class="media-body">tesouraria
+                                <span class="mb-0 text-sm">{{ tesouraria.idTesouraria }}</span>
                             </div>
                         </th>
-                     
                         <td>
-                            {{ fornecedores.identificacao }}
+                            {{ tesouraria.idClientes }}
                         </td>
                          <td>
-                            {% if fornecedores.cpf %}
-                            {{ fornecedores.cpf }}
-                            {% else %}
-                            {{ fornecedores.cnpj }}
-                            {% endif %}
+                            {{ tesouraria.idEmpresas }}
                         </td>
                         <td>
-                            {{ fornecedores.classificacao }}
+                            {{ tesouraria.idPlanodeContas }}
                         </td>
                         <td>
-                            {{ fornecedores.numeroConta }}
+                            {{ tesouraria.idFormasPagamento }}
                         </td>
+                         <td>
+                            {{ tesouraria.idFornecedores }}
+                        </td>
+                        
                         <td>
-                            {{ fornecedores.numeroAgencia }}
+                            {{ tesouraria.valor }}
                         </td>
                          <td>
-                            {{ fornecedores.DataSaldoInicial }}
+                            {{ tesouraria.dataEmissao }}
                         </td>
                          <td>
-                            {{ fornecedores.Caixa }}
+                            {{ tesouraria.dataVencimento }}
                         </td>
                          <td>
-                            {{ fornecedores.Banco }}
+                            {{ tesouraria.dataDisponibilidade }}
                         </td>
+                       
                         <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -74,7 +83,7 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    {% endif %}
+                
                     </tbody>
                 </table>
             </div>

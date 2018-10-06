@@ -12,52 +12,56 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Idenfificacao</th>
-                        <th scope="col">CPF/CNPJ</th>
-                        <th scope="col">inscricaoEstadual</th>
-                        <th scope="col">inscricaoMunicipal</th>
-                        <th scope="col"><i>Ações</i></th>
-                        
+                        <th scope="col">ID Plano de Contas</th>
+                        <th scope="col">ID Contas Bancarias</th>
+                        <th scope="col">Tipo Conta</th>
+                        <th scope="col">Classificacao</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Fornecedor</th>
+                        <th scope="col">EntradaRecurso</th>
+                        <th scope="col">SaidaRecurso</th>
+                        <th scope="col">Caixa</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% if items.object_list.count > 0 %}
-                    {% for fornecedores in items.object_list %}
+                     
+                
+                    {% for planocontas in items.object_list %}
                     <tr>
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ fornecedores.idFornecedores }}</span>
+                                <span class="mb-0 text-sm">{{ planocontas.idPlanodeContas }}</span>
                             </div>
                         </th>
-                     
                         <td>
-                            {{ fornecedores.identificacao }}
+                            {{ planocontas.idContasBancarias }}
                         </td>
                          <td>
-                            {% if fornecedores.cpf %}
-                            {{ fornecedores.cpf }}
-                            {% else %}
-                            {{ fornecedores.cnpj }}
-                            {% endif %}
+                            {{ planocontas.tipoConta }}
                         </td>
                         <td>
-                            {{ fornecedores.classificacao }}
+                            {{ planocontas.classificacao }}
                         </td>
                         <td>
-                            {{ fornecedores.numeroConta }}
+                            {{ planocontas.cliente }}
                         </td>
+                         <td>
+                            {{ planocontas.fornecedor }}
+                        </td>
+                        
                         <td>
-                            {{ fornecedores.numeroAgencia }}
+                            {{ planocontas.entradaRecurso }}
                         </td>
                          <td>
-                            {{ fornecedores.DataSaldoInicial }}
+                            {{ planocontas.saidaRecurso }}
                         </td>
                          <td>
-                            {{ fornecedores.Caixa }}
+                            {{ planocontas.Caixa }}
                         </td>
                          <td>
-                            {{ fornecedores.Banco }}
+                            {{ planocontas.Banco }}
                         </td>
                         <td class="text-right">
                             <div class="dropdown">
@@ -74,7 +78,7 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    {% endif %}
+                
                     </tbody>
                 </table>
             </div>
