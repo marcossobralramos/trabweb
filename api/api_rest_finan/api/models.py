@@ -2,7 +2,7 @@ from django.db import models
 
 class Empresa(models.Model):
 
-    id_empresa = models.IntegerField(primary_key = True)
+    id_empresa = models.AutoField(primary_key = True)
     razao_social = models.CharField(max_length=50)
     identificacao = models.CharField(max_length=50)
     tipo_pessoa = models.CharField(max_length=10)
@@ -26,7 +26,7 @@ class Empresa(models.Model):
 
 class Cliente(models.Model):
     
-    id_cliente = models.IntegerField(primary_key = True)
+    id_cliente = models.AutoField(primary_key = True)
     razao_social = models.CharField(max_length=50)
     identificacao = models.CharField(max_length=50)
     tipo_pessoa = models.CharField(max_length=10)
@@ -50,7 +50,7 @@ class Cliente(models.Model):
 
 class Fornecedor(models.Model):
     
-    id_fornecedor = models.IntegerField(primary_key = True)
+    id_fornecedor = models.AutoField(primary_key = True)
     razao_social = models.CharField(max_length=50)
     identificacao = models.CharField(max_length=50)
     tipo_pessoa = models.CharField(max_length=10)
@@ -74,7 +74,7 @@ class Fornecedor(models.Model):
 
 class ContaBancaria(models.Model):
     
-    id_conta_bancaria = models.IntegerField(primary_key = True)
+    id_conta_bancaria = models.AutoField(primary_key = True)
     classificacao = models.CharField(max_length=18)
     descricao = models.CharField(max_length=50)
     numero_conta = models.CharField(max_length=20)
@@ -90,7 +90,7 @@ class ContaBancaria(models.Model):
 
 class PlanoDeContas(models.Model):
     
-    id_plano_de_contas = models.IntegerField(primary_key = True)
+    id_plano_de_contas = models.AutoField(primary_key = True)
     id_conta_bancaria =  models.ForeignKey(ContaBancaria, on_delete=models.SET_NULL, null=True)
     classificacao = models.CharField(max_length=18)
     tipo_conta = models.CharField(max_length=15)
@@ -116,7 +116,7 @@ class FormaDePagamento(models.Model):
 
 class Tesouraria(models.Model):
     
-    id_tesouraria = models.IntegerField(primary_key = True)
+    id_tesouraria = models.AutoField(primary_key = True)
     id_Empresa =  models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)
     id_clientes =  models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
     id_plano_de_contas = models.ForeignKey(PlanoDeContas, on_delete = models.CASCADE, null=True)
@@ -134,7 +134,7 @@ class Tesouraria(models.Model):
 
 class LancamentoReceber(models.Model):
     
-    id_lancamento_receber = models.IntegerField(primary_key = True)
+    id_lancamento_receber = models.AutoField(primary_key = True)
     id_cliente =  models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
     id_empresa =  models.ForeignKey(Empresa, on_delete=models.SET_NULL, null=True)
     data_emissao = models.CharField(max_length=12)
@@ -148,7 +148,7 @@ class LancamentoReceber(models.Model):
 
 class LancamentoPagar(models.Model):
     
-    id_lancamento_pagar = models.IntegerField(primary_key = True)
+    id_lancamento_pagar = models.AutoField(primary_key = True)
     id_fornecedor =  models.ForeignKey(Fornecedor, on_delete=models.CASCADE, null=True)
     id_empresa=  models.ForeignKey(Empresa, on_delete=models.SET_NULL, null=True)
     data_emissao = models.CharField(max_length=12)
@@ -162,7 +162,7 @@ class LancamentoPagar(models.Model):
     
 class BaixaPagar(models.Model):
     
-    id_baixa_pagar = models.IntegerField(primary_key = True)
+    id_baixa_pagar = models.AutoField(primary_key = True)
     id_forma_pagamento =  models.ForeignKey(FormaDePagamento, on_delete=models.CASCADE, null=True)
     banco = models.CharField(max_length=50)
     disponibilidade = models.CharField(max_length=12)
@@ -176,7 +176,7 @@ class BaixaPagar(models.Model):
 
 class BaixaReceber(models.Model):
     
-    id_baixa_receber = models.IntegerField(primary_key = True)
+    id_baixa_receber = models.AutoField(primary_key = True)
     id_forma_pagamento =  models.ForeignKey(FormaDePagamento, on_delete=models.CASCADE, null=True)
     id_lancamento_receber =  models.ForeignKey(LancamentoReceber, on_delete=models.CASCADE, null=True)
     banco = models.CharField(max_length=50)

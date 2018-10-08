@@ -28,7 +28,7 @@ class ClienteSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Cliente
 		fields = (
-			'id_empresa', 'razao_social', 'identificacao', 'tipo_pessoa',
+			'id_cliente', 'razao_social', 'identificacao', 'tipo_pessoa',
 			'cnpj_cpf', 'inscricao_estadual', 'inscricao_municipal',
 			'endereco', 'bairro', 'municipio', 'cep', 'uf', 'telefone',
 			'email', 'nome_titular', 'cpf', 'funcao'
@@ -38,7 +38,7 @@ class FornecedorSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Fornecedor
 		fields = (
-			'id_empresa', 'razao_social', 'identificacao', 'tipo_pessoa',
+			'id_fornecedor', 'razao_social', 'identificacao', 'tipo_pessoa',
 			'cnpj_cpf', 'inscricao_estadual', 'inscricao_municipal',
 			'endereco', 'bairro', 'municipio', 'cep', 'uf', 'telefone',
 			'email', 'nome_titular', 'cpf', 'funcao'
@@ -74,4 +74,4 @@ class BaixaReceberSerializer(serializers.HyperlinkedModelSerializer):
 
 class TesourariaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Tesouraria	
+		model = Tesouraria
