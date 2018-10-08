@@ -5,19 +5,28 @@
 <div class="row">
     <div class="col">
         <div class="card shadow">
-            <div class="card-header border-0">
-                <h3 class="mb-0">Lista de {{ page.title }}</h3>
+            <div class="card-header border-0 row">
+                <div class="col-sm-12">
+                    <div class="text-left">
+                        <button
+                                id="btn-add"
+                                class="btn btn-icon btn-2 btn-default"
+                                type="button"
+                                data-toggle="modal" data-target="#modal-view">
+                            <span class="btn-inner--icon"><i class="fa fa-plus"> Adicionar</i></span>
+                        </button>
+                    </div>
+                    <h3 class="mb-0 text-right">Lista de {{ page.title }}</h3>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Empresa</th>
                         <th scope="col">CPF/CNPJ</th>
                         <th scope="col">Titular</th>
                         <th scope="col">Telefone</th>
-                        <th scope="col">E-mail</th>
                         <th scope="col"><i>Ações</i></th>
                     </tr>
                     </thead>
@@ -26,12 +35,9 @@
                         {% for empresa in items.object_list %}
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ empresa.idEmpresas }}</span>
+                                <span class="mb-0 text-sm">{{ empresa.identificacao }}</span>
                             </div>
                         </th>
-                        <td>
-                            {{ empresa.identificacao }}
-                        </td>
                         <td>
                             {% if empresa.cpf %}
                             {{ empresa.cpf }}
@@ -40,13 +46,10 @@
                             {% endif %}
                         </td>
                         <td>
-                            {{ empresa.nomeTitular }}
+                            {{ empresa.nome_titular }}
                         </td>
                         <td>
                             {{ empresa.telefone }}
-                        </td>
-                        <td>
-                            {{ empresa.email }}
                         </td>
                         <td class="text-right">
                             <div class="dropdown">
@@ -55,9 +58,20 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" href="#">Visualizar</a>
-                                    <a class="dropdown-item" href="#">Editar</a>
-                                    <a class="dropdown-item" href="#">Deletar</a>
+                                    <a class="dropdown-item view"
+                                       onclick="onViewClick(this)"
+                                       item-id="{{ empresa.id_empresa }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Visualizar</a>
+                                    <a class="dropdown-item edit"
+                                       onclick="onEditClick(this)"
+                                       item-id="{{ empresa.id_empresa }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Editar</a>
+                                    <a class="dropdown-item delete"
+                                       onclick="onDeleteClick(this)"
+                                       item-id="{{ empresa.id_empresa }}"
+                                       href="#">Deletar</a>
                                 </div>
                             </div>
                         </td>
@@ -69,4 +83,149 @@
         </div>
     </div>
 </div>
+<!-- modal view e edit-->
+<div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-header bg-transparent">
+                        <div class="text-muted text-center">
+                            <h2>Empresa</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form role="form" id="form-item">
+                            <h6 class="text-muted">DADOS PRINCIPAIS</h6>
+                            <input name="id_empresa" hidden>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-12">
+                                    <label class="label">Nome</label>
+                                    <input class="form-control" placeholder="Nome" type="text" name="identificacao">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-3">
+                                    <label class="label">Tipo de Pessoa</label>
+                                    <select class="form-control" name="tipo_pessoa">
+                                        <option value="">SELECIONE</option>
+                                        <option value="1">FÍSICA</option>
+                                        <option value="2">JURÍDICA</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">CNPJ/CPF</label>
+                                    <input class="form-control" placeholder="CNPJ/CPF" name="cnpj_cpf" type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-5">
+                                    <label class="label">Razão Social</label>
+                                    <input class="form-control" placeholder="Razão Social" name="razao_social"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Inscrição Municipal</label>
+                                    <input class="form-control" placeholder="Inscrição Municipal"
+                                           name="inscricao_municipal"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Inscrição Estadual</label>
+                                    <input class="form-control" placeholder="Inscrição Estadual"
+                                           name="inscricao_estadual"
+                                           type="text">
+                                </div>
+                            </div>
+                            <hr>
+                            <h6 class="text-muted">LOCALIZAÇÃO</h6>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">CEP</label>
+                                    <input class="form-control" placeholder="CEP"
+                                           name="cep"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Endereço</label>
+                                    <input class="form-control" placeholder="Endereço"
+                                           name="endereco"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-5">
+                                    <label class="label">Bairro</label>
+                                    <input class="form-control" placeholder="Bairro"
+                                           name="bairro"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-5">
+                                    <label class="label">Município</label>
+                                    <input class="form-control" placeholder="Município"
+                                           name="municipio"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-2">
+                                    <label class="label">UF</label>
+                                    <input class="form-control" placeholder="UF"
+                                           name="uf"
+                                           type="text">
+                                </div>
+                            </div>
+                            <hr>
+                            <h6 class="text-muted">CONTATOS</h6>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Telefone</label>
+                                    <input class="form-control" placeholder="Telefone"
+                                           name="telefone"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">E-mail</label>
+                                    <input class="form-control" placeholder="E-mail"
+                                           name="email"
+                                           type="text">
+                                </div>
+                            </div>
+                            <hr>
+                            <h6 class="text-muted">DADOS DO TITULAR</h6>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-12">
+                                    <label class="label">Nome</label>
+                                    <input class="form-control" placeholder="Nome"
+                                           name="nome_titular"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">CPF</label>
+                                    <input class="form-control" placeholder="CPF"
+                                           name="cpf"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Função</label>
+                                    <input class="form-control" placeholder="Função"
+                                           name="funcao"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar
+                                </button>
+                                <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="server" value="{{ server }}" hidden/>
+<input id="model" value="empresas" hidden/>
+<!-- modal view e edit -->
 {% endblock %}

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+import requests, json
+from django.http import HttpResponse
 from .models import Empresas
 from .models import Clientes
 from .models import Fornecedores
@@ -8,36 +10,67 @@ from .models import ContasBancarias
 from .models import PlanodeContas
 from .models import FormasPagamento
 from .models import Tesouraria
+
 # pagination
-items_for_page = 10
+items_for_page = 5
+
+# rest
+url = "http://127.0.0.1:8000"
+
 
 # Create your views here.
 def dashboard(request):
-
     page = {
-        "href" : "/dashboard",
-        "title" : "Dashboard",
+        "href": "/dashboard",
+        "title": "Dashboard",
+        "server": "http://127.0.0.1:8001"
     }
 
     user = get_info_user_auth()
 
     context = {
-        "descripton" : "Dashboard",
-        "page" : page,
-        "user" : user,
-        "cards" : get_info_cards_top(),
+        "descripton": "Dashboard",
+        "page": page,
+        "user": user,
+        "cards": get_info_cards_top(),
     }
     return render(request, 'financeiro/dashboard.html', context)
 
+
 def login(request):
-    return render(request, 'financeiro/login.html', context)
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/empresas", headers=headers)
+    list_empresa = json.loads(response.content)
+    return render(request, 'financeiro/login.html', {})
+
 
 def empresas(request):
     return empresas_pagination(request, 1)
 
-def empresas_pagination(request, page_index):
 
-    list_empresa = Empresas.objects.all()
+def empresa_view(request, id):
+    return view("empresas", id)
+
+def empresa_add(request):
+    return add(request, "empresas")
+
+def empresa_edit(request, id):
+    return edit(request, id, "empresas")
+
+def empresa_delete(request, id):
+    return delete(id, "empresas")
+
+
+def empresas_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/empresas", headers=headers)
+    list_empresa = json.loads(response.content)
     paginator = Paginator(list_empresa, items_for_page)  # Mostra n empresas por página
 
     try:
@@ -48,11 +81,12 @@ def empresas_pagination(request, page_index):
     page = {
         "href": "/empresas",
         "title": "Empresas",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
         "descripton": "Empresas",
-        "page" : page,
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_itens": len(list_empresa),
         "user": get_info_user_auth(),
@@ -62,12 +96,31 @@ def empresas_pagination(request, page_index):
 
     return render(request, 'financeiro/empresas.html', context)
 
+
 def clientes(request):
     return clientes_pagination(request, 1)
 
-def clientes_pagination(request, page_index):
 
-    list_clientes = Clientes.objects.all()
+def cliente_view(request, id):
+    return view("clientes", id)
+
+def cliente_add(request):
+    return add(request, "clientes")
+
+def cliente_edit(request, id):
+    return edit(request, id, "clientes")
+
+def cliente_delete(request, id):
+    return delete(id, "clientes")
+
+
+def clientes_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/clientes", headers=headers)
+    list_clientes = json.loads(response.content)
     paginator = Paginator(list_clientes, items_for_page)  # Mostra n empresas por página
 
     try:
@@ -78,11 +131,12 @@ def clientes_pagination(request, page_index):
     page = {
         "href": "/clientes",
         "title": "Clientes",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
-        "descripton": "Clientes",
-        "page" : page,
+        "description": "Clientes",
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_clientes),
         "user": get_info_user_auth(),
@@ -92,12 +146,30 @@ def clientes_pagination(request, page_index):
 
     return render(request, 'financeiro/clientes.html', context)
 
+
 def fornecedores(request):
     return fornecedores_pagination(request, 1)
 
-def fornecedores_pagination(request, page_index):
 
-    list_fornecedor = Fornecedores.objects.all()
+def fornecedor_view(request, id):
+    return view("fornecedores", id)
+
+def fornecedor_add(request):
+    return add(request, "fornecedores")
+
+def fornecedor_edit(request, id):
+    return edit(request, id, "fornecedores")
+
+def fornecedor_delete(request, id):
+    return delete(id, "fornecedores")
+
+def fornecedores_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/fornecedores", headers=headers)
+    list_fornecedor = json.loads(response.content)
     paginator = Paginator(list_fornecedor, items_for_page)  # Mostra n fornecedores por página
 
     try:
@@ -108,11 +180,12 @@ def fornecedores_pagination(request, page_index):
     page = {
         "href": "/fornecedores",
         "title": "Fornecedores",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
-        "descripton": "Fornecedores",
-        "page" : page,
+        "description": "Fornecedores",
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_fornecedor),
         "user": get_info_user_auth(),
@@ -122,12 +195,18 @@ def fornecedores_pagination(request, page_index):
 
     return render(request, 'financeiro/fornecedores.html', context)
 
+
 def contas_bancarias(request):
     return contas_bancarias_pagination(request, 1)
 
-def contas_bancarias_pagination(request, page_index):
 
-    list_contas_bancarias = ContasBancarias.objects.all()
+def contas_bancarias_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/contas-bancarias", headers=headers)
+    list_contas_bancarias = json.loads(response.content)
     paginator = Paginator(list_contas_bancarias, items_for_page)  # Mostra n fornecedores por página
 
     try:
@@ -138,11 +217,12 @@ def contas_bancarias_pagination(request, page_index):
     page = {
         "href": "/contas-bancarias",
         "title": "ContasBancarias",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
-        "descripton": "ContasBancarias",
-        "page" : page,
+        "description": "ContasBancarias",
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_contas_bancarias),
         "user": get_info_user_auth(),
@@ -150,13 +230,19 @@ def contas_bancarias_pagination(request, page_index):
         "cards": get_info_cards_top(),
     }
     return render(request, 'financeiro/contasbancarias.html', context)
-    
+
+
 def plano_de_contas(request):
     return plano_de_contas_pagination(request, 1)
 
-def plano_de_contas_pagination(request, page_index):
 
-    list_plano_contas = PlanodeContas.objects.all()
+def plano_de_contas_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/planos-contas", headers=headers)
+    list_plano_contas = json.loads(response.content)
     paginator = Paginator(list_plano_contas, items_for_page)  # Mostra n fornecedores por página
 
     try:
@@ -167,11 +253,12 @@ def plano_de_contas_pagination(request, page_index):
     page = {
         "href": "/planos-contas",
         "title": "PlanoContas",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
         "descripton": "PlanoContas",
-        "page" : page,
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_plano_contas),
         "user": get_info_user_auth(),
@@ -184,8 +271,8 @@ def plano_de_contas_pagination(request, page_index):
 def formas_pagamento(request):
     return formas_pagamento_pagination(request, 1)
 
-def formas_pagamento_pagination(request, page_index):
 
+def formas_pagamento_pagination(request, page_index):
     list_formas_pagamento = FormasPagamento.objects.all()
     paginator = Paginator(list_formas_pagamento, items_for_page)  # Mostra n fornecedores por página
 
@@ -197,11 +284,12 @@ def formas_pagamento_pagination(request, page_index):
     page = {
         "href": "/formas-pagamento",
         "title": "FormasPagamento",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
-        "descripton": "FormasPagamento",
-        "page" : page,
+        "description": "FormasPagamento",
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_formas_pagamento),
         "user": get_info_user_auth(),
@@ -211,11 +299,12 @@ def formas_pagamento_pagination(request, page_index):
 
     return render(request, 'financeiro/formaspagamento.html', context)
 
+
 def tesouraria(request):
     return tesouraria_pagination(request, 1)
 
-def tesouraria_pagination(request, page_index):
 
+def tesouraria_pagination(request, page_index):
     list_tesouraria = Tesouraria.objects.all()
     paginator = Paginator(list_tesouraria, items_for_page)  # Mostra n fornecedores por página
 
@@ -227,11 +316,12 @@ def tesouraria_pagination(request, page_index):
     page = {
         "href": "/tesouraria",
         "title": "Tesouraria",
+        "server": "http://127.0.0.1:8001"
     }
 
     context = {
-        "descripton": "Tesouraria",
-        "page" : page,
+        "description": "Tesouraria",
+        "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_tesouraria),
         "user": get_info_user_auth(),
@@ -241,11 +331,13 @@ def tesouraria_pagination(request, page_index):
 
     return render(request, 'financeiro/tesouraria.html', context)
 
+
 def get_info_user_auth():
     return {
         "img_url": "https://lh4.googleusercontent.com/-iQ04MxZ1EpY/AAAAAAAAAAI/AAAAAAAABLQ/hsldODaCorY/s96-c/photo.jpg",
         "name": "Marcos Sobral",
     }
+
 
 def get_info_cards_top():
     return {
@@ -256,3 +348,44 @@ def get_info_cards_top():
             "percent_status": "up",
         }
     }
+
+
+def view(model, id):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/" + model + "/%s" % id, headers=headers)
+
+    return HttpResponse(response)
+
+def add(request, model):
+    headers = {
+        "Accept": "application/json"
+    }
+    if request.method == "POST":
+        data = json.loads(request.POST.get("form"))
+        response = requests.post(url + "/" + model + "/", data, headers=headers)
+
+    return HttpResponse(response)
+
+def edit(request, id, model):
+    headers = {
+        "Accept": "application/json"
+    }
+    if request.method == "POST":
+        data = json.loads(request.POST.get("form"))
+        response = requests.put(url + "/" + model + "/%s/" % id, data, headers=headers)
+
+    return HttpResponse(response)
+
+
+def delete(id, model):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.delete(url + "/" + model + "/%s/" % id, headers=headers)
+
+
+    return HttpResponse(response)
