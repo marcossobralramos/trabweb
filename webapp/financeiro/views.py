@@ -3,27 +3,21 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 import requests, json
 from django.http import HttpResponse
-from .models import Empresas
-from .models import Clientes
-from .models import Fornecedores
-from .models import ContasBancarias
-from .models import PlanodeContas
-from .models import FormasPagamento
-from .models import Tesouraria
 
 # pagination
 items_for_page = 5
 
 # rest
-url = "http://127.0.0.1:8000"
+url = "http://127.0.0.1:8001"
 
+server = "http://127.0.0.1:8000"
 
 # Create your views here.
 def dashboard(request):
     page = {
         "href": "/dashboard",
         "title": "Dashboard",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     user = get_info_user_auth()
@@ -81,7 +75,7 @@ def empresas_pagination(request, page_index):
     page = {
         "href": "/empresas",
         "title": "Empresas",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -99,7 +93,6 @@ def empresas_pagination(request, page_index):
 
 def clientes(request):
     return clientes_pagination(request, 1)
-
 
 def cliente_view(request, id):
     return view("clientes", id)
@@ -131,7 +124,7 @@ def clientes_pagination(request, page_index):
     page = {
         "href": "/clientes",
         "title": "Clientes",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -180,7 +173,7 @@ def fornecedores_pagination(request, page_index):
     page = {
         "href": "/fornecedores",
         "title": "Fornecedores",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -217,7 +210,7 @@ def contas_bancarias_pagination(request, page_index):
     page = {
         "href": "/contas-bancarias",
         "title": "ContasBancarias",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -253,7 +246,7 @@ def plano_de_contas_pagination(request, page_index):
     page = {
         "href": "/planos-contas",
         "title": "PlanoContas",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -284,7 +277,7 @@ def formas_pagamento_pagination(request, page_index):
     page = {
         "href": "/formas-pagamento",
         "title": "FormasPagamento",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -316,7 +309,7 @@ def tesouraria_pagination(request, page_index):
     page = {
         "href": "/tesouraria",
         "title": "Tesouraria",
-        "server": "http://127.0.0.1:8001"
+        "server": server
     }
 
     context = {
@@ -330,6 +323,196 @@ def tesouraria_pagination(request, page_index):
     }
 
     return render(request, 'financeiro/tesouraria.html', context)
+
+def lancamentos_a_receber(request):
+    return lancamentos_a_receber_pagination(request, 1)
+
+def lancamentos_a_receber_view(request, id):
+    return view("lancamentos-a-receber", id)
+
+def lancamentos_a_receber_add(request):
+    return add(request, "lancamentos-a-receber")
+
+def lancamentos_a_receber_edit(request, id):
+    return edit(request, id, "lancamentos-a-receber")
+
+def lancamentos_a_receber_delete(request, id):
+    return delete(id, "lancamentos-a-receber")
+
+def lancamentos_a_receber_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/lancamentos-a-receber", headers=headers)
+    list_lancamento_a_receber = json.loads(response.content)
+    paginator = Paginator(list_lancamento_a_receber, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        lancamentos = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        lancamentos = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/lancamentos-a-receber",
+        "title": "Lançamentos a Receber",
+        "server": server
+    }
+
+    context = {
+        "description": "Lançamentos a Receber",
+        "page": page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_lancamento_a_receber),
+        "user": get_info_user_auth(),
+        "items": lancamentos,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/lancamentos-a-receber.html', context)
+
+def lancamentos_a_pagar(request):
+    return lancamentos_a_pagar_pagination(request, 1)
+
+
+def lancamentos_a_pagar_view(request, id):
+    return view("lancamentos-a-pagar", id)
+
+def lancamentos_a_pagar_add(request):
+    return add(request, "lancamentos-a-pagar")
+
+def lancamentos_a_pagar_edit(request, id):
+    return edit(request, id, "lancamentos-a-pagar")
+
+def lancamentos_a_pagar_delete(request, id):
+    return delete(id, "lancamentos-a-pagar")
+
+def lancamentos_a_pagar_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/lancamentos-a-pagar", headers=headers)
+    list_lancamento_a_pagar = json.loads(response.content)
+    paginator = Paginator(list_lancamento_a_pagar, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        lancamentos = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        lancamentos = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/lancamentos-a-pagar",
+        "title": "Lançamentos a Pagar",
+        "server": server
+    }
+
+    context = {
+        "description": "Lançamentos a Pagar",
+        "page": page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_lancamento_a_pagar),
+        "user": get_info_user_auth(),
+        "items": lancamentos,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/lancamentos-a-pagar.html', context)
+
+def baixas_a_receber(request):
+    return baixas_a_receber_pagination(request, 1)
+
+def baixas_a_receber_view(request, id):
+    return view("baixas-a-receber", id)
+
+def baixas_a_receber_add(request):
+    return add(request, "baixas-a-receber")
+
+def baixas_a_receber_edit(request, id):
+    return edit(request, id, "baixas-a-receber")
+
+def baixas_a_receber_delete(request, id):
+    return delete(id, "baixas-a-receber")
+
+def baixas_a_receber_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/baixas-a-receber", headers=headers)
+    list_baixa_a_receber = json.loads(response.content)
+    paginator = Paginator(list_baixa_a_receber, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        baixas = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        baixas = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/baixas-a-receber",
+        "title": "Baixas a Receber",
+        "server": server
+    }
+
+    context = {
+        "description": "Baixas a Receber",
+        "page": page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_baixa_a_receber),
+        "user": get_info_user_auth(),
+        "items": baixas,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/baixas-a-receber.html', context)
+
+def baixas_a_pagar(request):
+    return baixas_a_pagar_pagination(request, 1)
+
+
+def baixas_a_pagar_view(request, id):
+    return view("baixas-a-pagar", id)
+
+def baixas_a_pagar_add(request):
+    return add(request, "baixas-a-pagar")
+
+def baixas_a_pagar_edit(request, id):
+    return edit(request, id, "baixas-a-pagar")
+
+def baixas_a_pagar_delete(request, id):
+    return delete(id, "baixas-a-pagar")
+
+def baixas_a_pagar_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/baixas-a-pagar", headers=headers)
+    list_baixa_a_pagar = json.loads(response.content)
+    paginator = Paginator(list_baixa_a_pagar, items_for_page)  # Mostra n fornecedores por página
+
+    try:
+        baixas = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        baixas = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/baixas-a-pagar",
+        "title": "Baixas a Pagar",
+        "server": server
+    }
+
+    context = {
+        "description": "Baixas a Pagar",
+        "page": page,
+        "num_pages": paginator.num_pages,
+        "total_items": len(list_baixa_a_pagar),
+        "user": get_info_user_auth(),
+        "items": baixas,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/baixas-a-pagar.html', context)
 
 
 def get_info_user_auth():

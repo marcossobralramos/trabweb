@@ -1,13 +1,11 @@
 from django.contrib.auth.models import User, Group
-from .models import Empresa, Cliente, Fornecedor, ContaBancaria, PlanoDeContas, FormaDePagamento, LancamentoPagar, LancamentoReceber, BaixaPagar, BaixaReceber, Tesouraria
+from .models import Empresa, Cliente, Fornecedor, ContaBancaria, PlanoDeContas, FormaDePagamento, LancamentoPagar, LancamentoReceber, Tesouraria
 from rest_framework import serializers
-
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'groups')
-
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -59,18 +57,20 @@ class FormaDePagamentoSerializer(serializers.HyperlinkedModelSerializer):
 class LancamentoPagarSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = LancamentoPagar
+		fields = (
+			'id_lancamento_pagar', 'id_fornecedor', 'id_empresa', 'data_emissao',
+			'data_vencimento', 'valor_titulo', 'numero_documento', 'data_baixa', 'valor_pago',
+			'id_forma_pagamento'
+		)
 
 class LancamentoReceberSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = LancamentoReceber
-
-class BaixaPagarSerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = BaixaPagar
-
-class BaixaReceberSerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = BaixaReceber
+		fields = (
+			'id_lancamento_receber', 'id_cliente', 'id_empresa', 'data_emissao',
+			'data_vencimento', 'valor_titulo', 'numero_documento', 'data_baixa', 'valor_pago',
+			'id_forma_pagamento'
+		)
 
 class TesourariaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

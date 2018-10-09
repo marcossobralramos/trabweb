@@ -141,6 +141,9 @@ class LancamentoReceber(models.Model):
     data_vencimento = models.CharField(max_length=12)
     valor_titulo = models.CharField(max_length=14)
     numero_documento = models.CharField(max_length=20)
+    data_baixa = models.CharField(max_length=12, null=True)
+    valor_pago = models.CharField(max_length=14, null=True)
+    id_forma_pagamento = models.ForeignKey(FormaDePagamento, on_delete=models.CASCADE, null=True)
   
     def __str__(self):
         """String for representing the Model object."""
@@ -155,25 +158,30 @@ class LancamentoPagar(models.Model):
     data_vencimento = models.CharField(max_length=12)
     valor_titulo = models.CharField(max_length=14)
     numero_documento = models.CharField(max_length=20)
+    data_baixa = models.CharField(max_length=12, null=True)
+    valor_pago = models.CharField(max_length=14, null=True)
+    id_forma_pagamento = models.ForeignKey(FormaDePagamento, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         """String for representing the Model object."""
         return self.id_lancamento_pagar
-    
-class BaixaPagar(models.Model):
-    
-    id_baixa_pagar = models.AutoField(primary_key = True)
-    id_forma_pagamento =  models.ForeignKey(FormaDePagamento, on_delete=models.CASCADE, null=True)
-    banco = models.CharField(max_length=50)
-    disponibilidade = models.CharField(max_length=12)
-    data_baixa = models.CharField(max_length=12)
-    valor_pago = models.CharField(max_length=14)
-    residual = models.CharField(max_length=14)
-  
-    def __str__(self):
-        """String for representing the Model object."""
-        return self.id_baixa_pagar
 
+'''
+class BaixaPagar(models.Model):
+  
+  id_baixa_pagar = models.AutoField(primary_key = True)
+  id_forma_pagamento =  models.ForeignKey(FormaDePagamento, on_delete=models.CASCADE, null=True)
+  banco = models.CharField(max_length=50)
+  disponibilidade = models.CharField(max_length=12)
+  data_baixa = models.CharField(max_length=12)
+  valor_pago = models.CharField(max_length=14)
+  residual = models.CharField(max_length=14)
+
+  def __str__(self):
+      """String for representing the Model object."""
+      return self.id_baixa_pagar
+'''
+'''
 class BaixaReceber(models.Model):
     
     id_baixa_receber = models.AutoField(primary_key = True)
@@ -188,3 +196,4 @@ class BaixaReceber(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.id_baixa_receber
+'''
