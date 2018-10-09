@@ -301,8 +301,13 @@ def formas_pagamento_delete(request, id):
     return delete(id, "formas-pagamento")
 
 def formas_pagamento_pagination(request, page_index):
-    list_formas_pagamento = FormasPagamento.objects.all()
-    paginator = Paginator(list_formas_pagamento, items_for_page)  # Mostra n fornecedores por página
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/formas-pagamento", headers=headers)
+    list_plano_contas = json.loads(response.content)
+    paginator = Paginator(list_plano_contas, items_for_page)  # Mostra n fornecedores por página
 
     try:
         formaspagamento = paginator.page(page_index)
@@ -310,21 +315,20 @@ def formas_pagamento_pagination(request, page_index):
         formaspagamento = paginator.page(paginator.num_pages)
 
     page = {
-        "href": "/formas-pagamento",
+        "href": "/formas_pagamento",
         "title": "FormasPagamento",
         "server": server
     }
 
     context = {
-        "description": "FormasPagamento",
+        "descripton": "FormasPagamento",
         "page": page,
         "num_pages": paginator.num_pages,
-        "total_items": len(list_formas_pagamento),
+        "total_items": len(list_plano_contas),
         "user": get_info_user_auth(),
         "items": formaspagamento,
         "cards": get_info_cards_top(),
     }
-
     return render(request, 'financeiro/formaspagamento.html', context)
 
 
@@ -344,7 +348,7 @@ def tesouraria_pagination(request, page_index):
     page = {
         "href": "/tesouraria",
         "title": "Tesouraria",
-        "server": server
+        "server": ser
     }
 
     context = {
