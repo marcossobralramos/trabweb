@@ -23,6 +23,10 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'empresas', views.EmpresaViewSet)
 router.register(r'clientes', views.ClienteViewSet)
 router.register(r'fornecedores', views.FornecedorViewSet)
+router.register(r'contas-bancarias', views.ContaBancariaViewSet)
+router.register(r'planos-contas', views.PlanoDeContasViewSet)
+router.register(r'formas-pagamento', views.FormaDePagamentoViewSet)
+router.register(r'tesouraria', views.TesourariaViewSet)
 router.register(r'lancamentos-a-pagar', views.LancamentoPagarViewSet)
 router.register(r'lancamentos-a-receber', views.LancamentoReceberViewSet)
 router.register(r'baixas-a-pagar', views.BaixaPagarViewSet)
@@ -34,3 +38,4 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+

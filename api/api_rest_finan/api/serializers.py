@@ -34,8 +34,8 @@ class ClienteSerializer(serializers.HyperlinkedModelSerializer):
 
 class FornecedorSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Fornecedor
-		fields = (
+		 model = Fornecedor
+		 fields = (
 			'id_fornecedor', 'razao_social', 'identificacao', 'tipo_pessoa',
 			'cnpj_cpf', 'inscricao_estadual', 'inscricao_municipal',
 			'endereco', 'bairro', 'municipio', 'cep', 'uf', 'telefone',
@@ -44,15 +44,28 @@ class FornecedorSerializer(serializers.HyperlinkedModelSerializer):
 
 class ContaBancariaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = ContaBancaria
+		 model = ContaBancaria
+		 fields = (
+			'id_conta_bancaria', 'classificacao', 'descricao', 'numero_conta',
+			'numero_agencia', 'data_saldo_inicial', 'saldo_inicial',
+			'caixa', 'banco'
+		)
 
 class PlanoDeContasSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = PlanoDeContas
+		 model = PlanoDeContas
+		 fields = (
+			'id_plano_de_contas', 'id_conta_bancaria', 'classificacao', 'tipo_conta',
+			'descricao', 'caixa', 'banco','cliente', 'fornecedor', 'entrada_recurso',
+			'saida_recurso'
+         )
 
 class FormaDePagamentoSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = FormaDePagamento
+		 model = FormaDePagamento
+		 fields = (
+			'id_forma_pagamento', 'descricao'
+		 )
 
 class LancamentoPagarSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
