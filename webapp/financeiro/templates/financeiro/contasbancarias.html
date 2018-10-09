@@ -23,13 +23,13 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-
+                        <th scope="col">ID</th>
                         <th scope="col">Classificacao</th>
                         <th scope="col">NumeroConta</th>
                         <th scope="col">NumeroAgencia</th>
                         <th scope="col">Caixa</th>
                         <th scope="col">Banco</th>
-                        <th scope="col"><i>Ações</i></th>
+                        <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,20 +62,10 @@
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
-                               <a class="dropdown-item view"
-                                       onclick="onViewClick(this)"
-                                       item-id="{{ contasbancarias.idContasBancarias }}"
-                                       data-toggle="modal" data-target="#modal-view"
-                                       href="#">Visualizar</a>
-                                    <a class="dropdown-item edit"
-                                       onclick="onEditClick(this)"
-                                       item-id="{{ contasbancarias.idContasBancarias }}"
-                                       data-toggle="modal" data-target="#modal-view"
-                                       href="#">Editar</a>
-                                    <a class="dropdown-item delete"
-                                       onclick="onDeleteClick(this)"
-                                       item-id="{{ contasbancarias.idContasBancarias }}"
-                                       href="#">Deletar</a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item" href="#">Visualizar</a>
+                                    <a class="dropdown-item" href="#">Editar</a>
+                                    <a class="dropdown-item" href="#">Deletar</a>
                                 </div>
                             </div>
                         </td>
@@ -88,104 +78,4 @@
         </div>
     </div>
 </div>
-<!-- modal view e edit-->
-<div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="card bg-secondary shadow border-0">
-                    <div class="card-header bg-transparent">
-                        <div class="text-muted text-center">
-                            <h2>Cliente</h2>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <form role="form" id="form-item">
-                            <h6 class="text-muted">DADOS PRINCIPAIS</h6>
-                            <input name="id_conta_bancaria" hidden>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-12">
-                                    <label class="label">Nome</label><!-- retirar-->
-                                    <input class="form-control" placeholder="Nome" type="text" name="identificacao"><!-- retirar-->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-3">
-                                    <label class="label">Tipo de Pessoa</label><!-- retirar-->
-                                    <select class="form-control" name="tipo_pessoa">
-                                        <option value="">SELECIONE</option>
-                                        <option value="1">FÍSICA</option>
-                                        <option value="2">JURÍDICA</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mb-3 col-sm-4">
-                                    <label class="label">Classificacao</label>
-                                    <input class="form-control" placeholder="Classificacao" name="classificacao" type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-5">
-                                    <label class="label">Descricao</label>
-                                    <input class="form-control" placeholder="Descricao" name="descricao" type="text">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Numero da conta</label>
-                                    <input class="form-control" placeholder="Numero da conta"
-                                           name="numero_conta"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Numero Agencia</label>
-                                    <input class="form-control" placeholder="Numero Agencia"
-                                           name="numero_agencia"
-                                           type="text">
-                                </div>
-                            </div>
-                            <hr>
-                            <h6 class="text-muted">LOCALIZAÇÃO</h6>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Data Saldo Inicial</label>
-                                    <input class="form-control" placeholder="Data Saldo Inicial"
-                                           name="data_saldo_inicial"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Saldo Inicial</label>
-                                    <input class="form-control" placeholder="Saldo Inicia"
-                                           name="saldo_inicial"
-                                           type="text">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-5">
-                                    <label class="label">Caixa</label>
-                                    <input class="form-control" placeholder="Caixa"
-                                           name="caixa"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-5">
-                                    <label class="label">Banco</label>
-                                    <input class="form-control" placeholder="Banco"
-                                           name="banco"
-                                           type="text">
-                                </div>
-
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar</button>
-                                <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<input id="server" value="{{ server }}" hidden/>
-<input id="model" value="contas-bancarias" hidden/>
-<!-- modal view e edit -->
 {% endblock %}

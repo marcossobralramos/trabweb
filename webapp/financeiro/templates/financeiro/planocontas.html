@@ -24,10 +24,16 @@
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">ID Plano de Contas</th>
+                        <th scope="col">ID Contas Bancarias</th>
+                        <th scope="col">Tipo Conta</th>
+                        <th scope="col">Classificacao</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Fornecedor</th>
                         <th scope="col">EntradaRecurso</th>
                         <th scope="col">SaidaRecurso</th>
-
-                        <th scope="col"><i>Ações</i></th>
+                        <th scope="col">Caixa</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col"><i>A��es</i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,14 +46,34 @@
                                 <span class="mb-0 text-sm">{{ planocontas.idPlanodeContas }}</span>
                             </div>
                         </th>
-
+                        <td>
+                            {{ planocontas.idContasBancarias }}
+                        </td>
+                         <td>
+                            {{ planocontas.tipoConta }}
+                        </td>
+                        <td>
+                            {{ planocontas.classificacao }}
+                        </td>
+                        <td>
+                            {{ planocontas.cliente }}
+                        </td>
+                         <td>
+                            {{ planocontas.fornecedor }}
+                        </td>
+                        
                         <td>
                             {{ planocontas.entradaRecurso }}
                         </td>
                          <td>
                             {{ planocontas.saidaRecurso }}
                         </td>
-
+                         <td>
+                            {{ planocontas.Caixa }}
+                        </td>
+                         <td>
+                            {{ planocontas.Banco }}
+                        </td>
                         <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -62,18 +88,6 @@
                             </div>
                         </td>
                     </tr>
-                      id_plano_de_contas = models.AutoField(primary_key = True)
-    id_conta_bancaria =  models.ForeignKey(ContaBancaria, on_delete=models.SET_NULL, null=True)
-    classificacao = models.CharField(max_length=18)
-    tipo_conta = models.CharField(max_length=15)
-    descricao = models.CharField(max_length=50)
-    caixa = models.CharField( max_length=1)
-    banco = models.CharField( max_length=1)
-    cliente = models.CharField(max_length=1)
-    fornecedor = models.CharField(max_length=1)
-    entrada_recurso = models.CharField(max_length=1)
-    saida_recurso = m
-
                     {% endfor %}
                 
                     </tbody>
@@ -82,147 +96,4 @@
         </div>
     </div>
 </div>
-<!-- modal view e edit-->
-<div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="card bg-secondary shadow border-0">
-                    <div class="card-header bg-transparent">
-                        <div class="text-muted text-center">
-                            <h2>Cliente</h2>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <form role="form" id="form-item">
-                            <h6 class="text-muted">DADOS PRINCIPAIS</h6>
-                            <input name="id_cliente" hidden>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-12">
-                                    <label class="label">Nome</label>
-                                    <input class="form-control" placeholder="Nome" type="text" name="identificacao">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-3">
-                                    <label class="label">Tipo de Pessoa</label>
-                                    <select class="form-control" name="tipo_pessoa">
-                                        <option value="">SELECIONE</option>
-                                        <option value="1">FÍSICA</option>
-                                        <option value="2">JURÍDICA</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mb-3 col-sm-4">
-                                    <label class="label">CNPJ/CPF</label>
-                                    <input class="form-control" placeholder="CNPJ/CPF" name="cnpj_cpf" type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-5">
-                                    <label class="label">Razão Social</label>
-                                    <input class="form-control" placeholder="Razão Social" name="razao_social" type="text">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Inscrição Municipal</label>
-                                    <input class="form-control" placeholder="Inscrição Municipal"
-                                           name="inscricao_municipal"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Inscrição Estadual</label>
-                                    <input class="form-control" placeholder="Inscrição Estadual"
-                                           name="inscricao_estadual"
-                                           type="text">
-                                </div>
-                            </div>
-                            <hr>
-                            <h6 class="text-muted">LOCALIZAÇÃO</h6>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">CEP</label>
-                                    <input class="form-control" placeholder="CEP"
-                                           name="cep"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Endereço</label>
-                                    <input class="form-control" placeholder="Endereço"
-                                           name="endereco"
-                                           type="text">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-5">
-                                    <label class="label">Bairro</label>
-                                    <input class="form-control" placeholder="Bairro"
-                                           name="bairro"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-5">
-                                    <label class="label">Município</label>
-                                    <input class="form-control" placeholder="Município"
-                                           name="municipio"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-2">
-                                    <label class="label">UF</label>
-                                    <input class="form-control" placeholder="UF"
-                                           name="uf"
-                                           type="text">
-                                </div>
-                            </div>
-                            <hr>
-                            <h6 class="text-muted">CONTATOS</h6>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Telefone</label>
-                                    <input class="form-control" placeholder="Telefone"
-                                           name="telefone"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">E-mail</label>
-                                    <input class="form-control" placeholder="E-mail"
-                                           name="email"
-                                           type="text">
-                                </div>
-                            </div>
-                            <hr>
-                            <h6 class="text-muted">DADOS DO TITULAR</h6>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-12">
-                                    <label class="label">Nome</label>
-                                    <input class="form-control" placeholder="Nome"
-                                           name="nome_titular"
-                                           type="text">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">CPF</label>
-                                    <input class="form-control" placeholder="CPF"
-                                           name="cpf"
-                                           type="text">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Função</label>
-                                    <input class="form-control" placeholder="Função"
-                                           name="funcao"
-                                           type="text">
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar</button>
-                                <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<input id="server" value="{{ server }}" hidden/>
-<input id="model" value="clientes" hidden/>
-<!-- modal view e edit -->
 {% endblock %}
