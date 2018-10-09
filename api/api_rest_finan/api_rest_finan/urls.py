@@ -23,11 +23,14 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'empresas', views.EmpresaViewSet)
 router.register(r'clientes', views.ClienteViewSet)
 router.register(r'fornecedores', views.FornecedorViewSet)
+router.register(r'contas-bancarias', views.ContaBancariaViewSet)
+router.register(r'planos-contas', views.PlanoDeContasViewSet)
+router.register(r'formas-pagamento', views.FormaDePagamentoViewSet)
 router.register(r'lancamentos-a-pagar', views.LancamentoPagarViewSet)
 router.register(r'lancamentos-a-receber', views.LancamentoReceberViewSet)
 router.register(r'baixas-a-pagar', views.BaixaPagarViewSet)
 router.register(r'baixas-a-receber', views.BaixaReceberViewSet)
-
+#router.register(r'tesouraria', views.PlanoDeContasViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
