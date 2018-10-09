@@ -192,6 +192,17 @@ def fornecedores_pagination(request, page_index):
 def contas_bancarias(request):
     return contas_bancarias_pagination(request, 1)
 
+def contas_bancarias_view(request, id):
+    return view("contas-bancarias", id)
+
+def contas_bancarias_add(request):
+    return add(request, "contas-bancarias")
+
+def contas_bancarias_edit(request, id):
+    return edit(request, id, "contas-bancarias")
+
+def contas_bancarias_delete(request, id):
+    return delete(id, "contas-bancarias")
 
 def contas_bancarias_pagination(request, page_index):
     headers = {
@@ -228,6 +239,17 @@ def contas_bancarias_pagination(request, page_index):
 def plano_de_contas(request):
     return plano_de_contas_pagination(request, 1)
 
+def plano_de_contas_view(request, id):
+    return view("planos-contas", id)
+
+def plano_de_contas_add(request):
+    return add(request, "planos-contas")
+
+def plano_de_contas_edit(request, id):
+    return edit(request, id, "planos-contass")
+
+def plano_de_contas_delete(request, id):
+    return delete(id, "planos-contas")
 
 def plano_de_contas_pagination(request, page_index):
     headers = {
@@ -264,9 +286,25 @@ def plano_de_contas_pagination(request, page_index):
 def formas_pagamento(request):
     return formas_pagamento_pagination(request, 1)
 
+def formas_pagamento_view(request, id):
+    return view("formas-pagamento", id)
+
+def formas_pagamento_add(request):
+    return add(request, "formas-pagamento")
+
+def formas_pagamento_edit(request, id):
+    return edit(request, id, "formas-pagamento")
+
+def formas_pagamento_delete(request, id):
+    return delete(id, "formas-pagamento")
 
 def formas_pagamento_pagination(request, page_index):
-    list_formas_pagamento = FormasPagamento.objects.all()
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/formas-pagamento", headers=headers)
+    list_formas_pagamento = json.loads(response.content)
     paginator = Paginator(list_formas_pagamento, items_for_page)  # Mostra n fornecedores por página
 
     try:
@@ -281,24 +319,39 @@ def formas_pagamento_pagination(request, page_index):
     }
 
     context = {
-        "description": "FormasPagamento",
+        "descripton": "FormasPagamento",
         "page": page,
         "num_pages": paginator.num_pages,
-        "total_items": len(list_formas_pagamento),
+        "total_items": len(  list_formas_pagamento),
         "user": get_info_user_auth(),
         "items": formaspagamento,
         "cards": get_info_cards_top(),
     }
-
     return render(request, 'financeiro/formaspagamento.html', context)
 
 
 def tesouraria(request):
     return tesouraria_pagination(request, 1)
 
+def tesouraria_view(request, id):
+    return view("tesouraria", id)
+
+def tesouraria_add(request):
+    return add(request, "tesouraria")
+
+def tesouraria_edit(request, id):
+    return edit(request, id, "tesouraria")
+
+def tesouraria_delete(request, id):
+    return delete(id, "tesouraria")
 
 def tesouraria_pagination(request, page_index):
-    list_tesouraria = Tesouraria.objects.all()
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/tesouraria", headers=headers)
+    list_tesouraria = json.loads(response.content)
     paginator = Paginator(list_tesouraria, items_for_page)  # Mostra n fornecedores por página
 
     try:
@@ -313,7 +366,7 @@ def tesouraria_pagination(request, page_index):
     }
 
     context = {
-        "description": "Tesouraria",
+        "descripton": "Tesouraria",
         "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_tesouraria),
@@ -321,8 +374,8 @@ def tesouraria_pagination(request, page_index):
         "items": tesouraria,
         "cards": get_info_cards_top(),
     }
-
     return render(request, 'financeiro/tesouraria.html', context)
+
 
 def lancamentos_a_receber(request):
     return lancamentos_a_receber_pagination(request, 1)
