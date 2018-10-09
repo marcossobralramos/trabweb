@@ -12,6 +12,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ('url', 'name')
 
+
 class EmpresaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Empresa
@@ -45,14 +46,27 @@ class FornecedorSerializer(serializers.HyperlinkedModelSerializer):
 class ContaBancariaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = ContaBancaria
+		fields = (
+			'id_conta_bancaria', 'classificacao', 'descricao', 'numero_conta',
+			'numero_agencia', 'data_saldo_inicial', 'saldo_inicial',
+			'caixa', 'banco'
+		)
 
 class PlanoDeContasSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = PlanoDeContas
+         model = PlanoDeContas
+         fields = (
+			'id_plano_de_contas', 'id_conta_bancaria', 'classificacao', 'tipo_conta',
+			'descricao', 'caixa', 'banco','cliente', 'fornecedor', 'entrada_recurso',
+			'saida_recurso'
+         )
 
 class FormaDePagamentoSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = FormaDePagamento
+         model = FormaDePagamento
+         fields = (
+			'id_forma_pagamento', 'descricao'
+		 )
 
 class LancamentoPagarSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
@@ -72,6 +86,13 @@ class LancamentoReceberSerializer(serializers.HyperlinkedModelSerializer):
 			'id_forma_pagamento'
 		)
 
+
+
 class TesourariaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Tesouraria
+         model = Tesouraria
+         fields = (
+			'id_tesouraria', 'id_Empresa', 'id_clientes', 'id_plano_de_contas',
+			'id_formas_pagamento', 'id_fornecedor', 'valor',
+			'numero', 'data_emissao','data_vencimento', 'data_disponibilidade'
+		 )
