@@ -8,9 +8,10 @@ from django.http import HttpResponse
 items_for_page = 5
 
 # rest
-url = "http://127.0.0.1:8001"
+url = "http://127.0.0.1:8000"
 
-server = "http://127.0.0.1:8000"
+server = "http://127.0.0.1:8001"
+
 
 # Create your views here.
 def dashboard(request):
@@ -48,11 +49,14 @@ def empresas(request):
 def empresa_view(request, id):
     return view("empresas", id)
 
+
 def empresa_add(request):
     return add(request, "empresas")
 
+
 def empresa_edit(request, id):
     return edit(request, id, "empresas")
+
 
 def empresa_delete(request, id):
     return delete(id, "empresas")
@@ -94,14 +98,18 @@ def empresas_pagination(request, page_index):
 def clientes(request):
     return clientes_pagination(request, 1)
 
+
 def cliente_view(request, id):
     return view("clientes", id)
+
 
 def cliente_add(request):
     return add(request, "clientes")
 
+
 def cliente_edit(request, id):
     return edit(request, id, "clientes")
+
 
 def cliente_delete(request, id):
     return delete(id, "clientes")
@@ -147,14 +155,18 @@ def fornecedores(request):
 def fornecedor_view(request, id):
     return view("fornecedores", id)
 
+
 def fornecedor_add(request):
     return add(request, "fornecedores")
+
 
 def fornecedor_edit(request, id):
     return edit(request, id, "fornecedores")
 
+
 def fornecedor_delete(request, id):
     return delete(id, "fornecedores")
+
 
 def fornecedores_pagination(request, page_index):
     headers = {
@@ -192,17 +204,22 @@ def fornecedores_pagination(request, page_index):
 def contas_bancarias(request):
     return contas_bancarias_pagination(request, 1)
 
+
 def contas_bancarias_view(request, id):
     return view("contas-bancarias", id)
+
 
 def contas_bancarias_add(request):
     return add(request, "contas-bancarias")
 
+
 def contas_bancarias_edit(request, id):
     return edit(request, id, "contas-bancarias")
 
+
 def contas_bancarias_delete(request, id):
     return delete(id, "contas-bancarias")
+
 
 def contas_bancarias_pagination(request, page_index):
     headers = {
@@ -239,17 +256,22 @@ def contas_bancarias_pagination(request, page_index):
 def plano_de_contas(request):
     return plano_de_contas_pagination(request, 1)
 
+
 def plano_de_contas_view(request, id):
     return view("planos-contas", id)
+
 
 def plano_de_contas_add(request):
     return add(request, "planos-contas")
 
+
 def plano_de_contas_edit(request, id):
     return edit(request, id, "planos-contass")
 
+
 def plano_de_contas_delete(request, id):
     return delete(id, "planos-contas")
+
 
 def plano_de_contas_pagination(request, page_index):
     headers = {
@@ -286,17 +308,22 @@ def plano_de_contas_pagination(request, page_index):
 def formas_pagamento(request):
     return formas_pagamento_pagination(request, 1)
 
+
 def formas_pagamento_view(request, id):
     return view("formas-pagamento", id)
+
 
 def formas_pagamento_add(request):
     return add(request, "formas-pagamento")
 
+
 def formas_pagamento_edit(request, id):
     return edit(request, id, "formas-pagamento")
 
+
 def formas_pagamento_delete(request, id):
     return delete(id, "formas-pagamento")
+
 
 def formas_pagamento_pagination(request, page_index):
     headers = {
@@ -322,7 +349,7 @@ def formas_pagamento_pagination(request, page_index):
         "descripton": "FormasPagamento",
         "page": page,
         "num_pages": paginator.num_pages,
-        "total_items": len(  list_formas_pagamento),
+        "total_items": len(list_formas_pagamento),
         "user": get_info_user_auth(),
         "items": formaspagamento,
         "cards": get_info_cards_top(),
@@ -333,17 +360,22 @@ def formas_pagamento_pagination(request, page_index):
 def tesouraria(request):
     return tesouraria_pagination(request, 1)
 
+
 def tesouraria_view(request, id):
     return view("tesouraria", id)
+
 
 def tesouraria_add(request):
     return add(request, "tesouraria")
 
+
 def tesouraria_edit(request, id):
     return edit(request, id, "tesouraria")
 
+
 def tesouraria_delete(request, id):
     return delete(id, "tesouraria")
+
 
 def tesouraria_pagination(request, page_index):
     headers = {
@@ -380,17 +412,22 @@ def tesouraria_pagination(request, page_index):
 def lancamentos_a_receber(request):
     return lancamentos_a_receber_pagination(request, 1)
 
+
 def lancamentos_a_receber_view(request, id):
     return view("lancamentos-a-receber", id)
+
 
 def lancamentos_a_receber_add(request):
     return add(request, "lancamentos-a-receber")
 
+
 def lancamentos_a_receber_edit(request, id):
     return edit(request, id, "lancamentos-a-receber")
 
+
 def lancamentos_a_receber_delete(request, id):
     return delete(id, "lancamentos-a-receber")
+
 
 def lancamentos_a_receber_pagination(request, page_index):
     headers = {
@@ -406,6 +443,11 @@ def lancamentos_a_receber_pagination(request, page_index):
     except (EmptyPage, InvalidPage):
         lancamentos = paginator.page(paginator.num_pages)
 
+    # Carregando combobox para o modals
+    combobox_empresas = json.loads(view("empresas", "").content)
+    combobox_fornecedores = json.loads(view("fornecedores", "").content)
+    combobox_formas_de_pagamento = json.loads(view("formas-pagamento", "").content)
+
     page = {
         "href": "/lancamentos-a-receber",
         "title": "Lançamentos a Receber",
@@ -420,9 +462,13 @@ def lancamentos_a_receber_pagination(request, page_index):
         "user": get_info_user_auth(),
         "items": lancamentos,
         "cards": get_info_cards_top(),
+        "combobox_empresas": combobox_empresas,
+        "combobox_fornecedores": combobox_fornecedores,
+        "combobox_formas_pagamento": combobox_formas_de_pagamento,
     }
 
     return render(request, 'financeiro/lancamentos-a-receber.html', context)
+
 
 def lancamentos_a_pagar(request):
     return lancamentos_a_pagar_pagination(request, 1)
@@ -431,14 +477,18 @@ def lancamentos_a_pagar(request):
 def lancamentos_a_pagar_view(request, id):
     return view("lancamentos-a-pagar", id)
 
+
 def lancamentos_a_pagar_add(request):
     return add(request, "lancamentos-a-pagar")
+
 
 def lancamentos_a_pagar_edit(request, id):
     return edit(request, id, "lancamentos-a-pagar")
 
+
 def lancamentos_a_pagar_delete(request, id):
     return delete(id, "lancamentos-a-pagar")
+
 
 def lancamentos_a_pagar_pagination(request, page_index):
     headers = {
@@ -454,6 +504,11 @@ def lancamentos_a_pagar_pagination(request, page_index):
     except (EmptyPage, InvalidPage):
         lancamentos = paginator.page(paginator.num_pages)
 
+    # Carregando combobox para o modals
+    combobox_empresas = json.loads(view("empresas", "").content)
+    combobox_fornecedores = json.loads(view("fornecedores", "").content)
+    combobox_formas_de_pagamento = json.loads(view("formas-pagamento", "").content)
+
     page = {
         "href": "/lancamentos-a-pagar",
         "title": "Lançamentos a Pagar",
@@ -468,24 +523,33 @@ def lancamentos_a_pagar_pagination(request, page_index):
         "user": get_info_user_auth(),
         "items": lancamentos,
         "cards": get_info_cards_top(),
+        "combobox_empresas": combobox_empresas,
+        "combobox_fornecedores": combobox_fornecedores,
+        "combobox_formas_pagamento": combobox_formas_de_pagamento,
     }
 
     return render(request, 'financeiro/lancamentos-a-pagar.html', context)
 
+
 def baixas_a_receber(request):
     return baixas_a_receber_pagination(request, 1)
+
 
 def baixas_a_receber_view(request, id):
     return view("baixas-a-receber", id)
 
+
 def baixas_a_receber_add(request):
     return add(request, "baixas-a-receber")
+
 
 def baixas_a_receber_edit(request, id):
     return edit(request, id, "baixas-a-receber")
 
+
 def baixas_a_receber_delete(request, id):
     return delete(id, "baixas-a-receber")
+
 
 def baixas_a_receber_pagination(request, page_index):
     headers = {
@@ -507,6 +571,11 @@ def baixas_a_receber_pagination(request, page_index):
         "server": server
     }
 
+    # Carregando combobox para o modals
+    combobox_empresas = json.loads(view("empresas", "").content)
+    combobox_fornecedores = json.loads(view("fornecedores", "").content)
+    combobox_formas_de_pagamento = json.loads(view("formas-pagamento", "").content)
+
     context = {
         "description": "Baixas a Receber",
         "page": page,
@@ -515,9 +584,13 @@ def baixas_a_receber_pagination(request, page_index):
         "user": get_info_user_auth(),
         "items": baixas,
         "cards": get_info_cards_top(),
+        "combobox_empresas": combobox_empresas,
+        "combobox_fornecedores": combobox_fornecedores,
+        "combobox_formas_pagamento": combobox_formas_de_pagamento,
     }
 
     return render(request, 'financeiro/baixas-a-receber.html', context)
+
 
 def baixas_a_pagar(request):
     return baixas_a_pagar_pagination(request, 1)
@@ -526,14 +599,18 @@ def baixas_a_pagar(request):
 def baixas_a_pagar_view(request, id):
     return view("baixas-a-pagar", id)
 
+
 def baixas_a_pagar_add(request):
     return add(request, "baixas-a-pagar")
+
 
 def baixas_a_pagar_edit(request, id):
     return edit(request, id, "baixas-a-pagar")
 
+
 def baixas_a_pagar_delete(request, id):
     return delete(id, "baixas-a-pagar")
+
 
 def baixas_a_pagar_pagination(request, page_index):
     headers = {
@@ -555,6 +632,11 @@ def baixas_a_pagar_pagination(request, page_index):
         "server": server
     }
 
+    # Carregando combobox para o modals
+    combobox_empresas = json.loads(view("empresas", "").content)
+    combobox_fornecedores = json.loads(view("fornecedores", "").content)
+    combobox_formas_de_pagamento = json.loads(view("formas-pagamento", "").content)
+
     context = {
         "description": "Baixas a Pagar",
         "page": page,
@@ -563,6 +645,9 @@ def baixas_a_pagar_pagination(request, page_index):
         "user": get_info_user_auth(),
         "items": baixas,
         "cards": get_info_cards_top(),
+        "combobox_empresas": combobox_empresas,
+        "combobox_fornecedores": combobox_fornecedores,
+        "combobox_formas_pagamento": combobox_formas_de_pagamento,
     }
 
     return render(request, 'financeiro/baixas-a-pagar.html', context)
@@ -595,6 +680,7 @@ def view(model, id):
 
     return HttpResponse(response)
 
+
 def add(request, model):
     headers = {
         "Accept": "application/json"
@@ -604,6 +690,7 @@ def add(request, model):
         response = requests.post(url + "/" + model + "/", data, headers=headers)
 
     return HttpResponse(response)
+
 
 def edit(request, id, model):
     headers = {
@@ -622,6 +709,5 @@ def delete(id, model):
     }
 
     response = requests.delete(url + "/" + model + "/%s/" % id, headers=headers)
-
 
     return HttpResponse(response)
