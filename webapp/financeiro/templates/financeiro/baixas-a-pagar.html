@@ -56,17 +56,17 @@
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     <a class="dropdown-item view"
                                        onclick="onViewClick(this)"
-                                       item-id="{{ baixa.id_baixa_pagar }}"
+                                       item-id="{{ baixa.id_lancamento_pagar }}"
                                        data-toggle="modal" data-target="#modal-view"
                                        href="#">Visualizar</a>
                                     <a class="dropdown-item edit"
                                        onclick="onEditClick(this)"
-                                       item-id="{{ baixa.id_baixa_pagar }}"
+                                       item-id="{{ baixa.id_lancamento_pagar }}"
                                        data-toggle="modal" data-target="#modal-view"
                                        href="#">Editar</a>
                                     <a class="dropdown-item delete"
                                        onclick="onDeleteClick(this)"
-                                       item-id="{{ baixa.id_baixa_pagar }}"
+                                       item-id="{{ baixa.id_lancamento_pagar }}"
                                        href="#">Deletar</a>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                     <div class="card-body">
                         <form role="form" id="form-item">
                             <h6 class="text-muted">DADOS PRINCIPAIS</h6>
-                            <input name="id_baixa_pagar" hidden>
+                            <input name="id_lancamento_pagar" hidden>
                             <div class="row">
                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Nº do Documento</label>
@@ -147,7 +147,7 @@
                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Data da Baixa</label>
                                     <input class="form-control"
-                                           name="data_vencimento"
+                                           name="data_baixa"
                                            type="date">
                                 </div>
                                 <div class="form-group mb-3 col-sm-4">

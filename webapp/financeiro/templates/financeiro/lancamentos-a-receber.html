@@ -56,17 +56,17 @@
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     <a class="dropdown-item view"
                                        onclick="onViewClick(this)"
-                                       item-id="{{ lancamento.id_lancamento_pagar }}"
+                                       item-id="{{ lancamento.id_lancamento_receber }}"
                                        data-toggle="modal" data-target="#modal-view"
                                        href="#">Visualizar</a>
                                     <a class="dropdown-item edit"
                                        onclick="onEditClick(this)"
-                                       item-id="{{ lancamento.id_lancamento_pagar }}"
+                                       item-id="{{ lancamento.id_lancamento_receber }}"
                                        data-toggle="modal" data-target="#modal-view"
                                        href="#">Editar</a>
                                     <a class="dropdown-item delete"
                                        onclick="onDeleteClick(this)"
-                                       item-id="{{ lancamento.id_lancamento_pagar }}"
+                                       item-id="{{ lancamento.id_lancamento_receber }}"
                                        href="#">Deletar</a>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                     <div class="card-body">
                         <form role="form" id="form-item">
                             <h6 class="text-muted">DADOS PRINCIPAIS</h6>
-                            <input name="id_lancamento_pagar" hidden>
+                            <input name="id_lancamento_receber" hidden>
                             <div class="row">
                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Nº do Documento</label>
@@ -112,11 +112,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-3 col-sm-4">
-                                    <label class="label">Fornecedor</label>
-                                    <select class="form-control" name="id_fornecedor">
+                                    <label class="label">Cliente</label>
+                                    <select class="form-control" name="id_cliente">
                                         <option value="">----------</option>
-                                        {% for fornecedor in combobox_fornecedores %}
-                                        <option value="http://localhost:8000/fornecedores/{{fornecedor.id_fornecedor}}/">{{fornecedor.identificacao}}</option>
+                                        {% for cliente in combobox_clientes %}
+                                        <option value="http://localhost:8000/fornecedores/{{cliente.id_cliente}}/">{{fornecedor.identificacao}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -147,7 +147,7 @@
                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Data da Baixa</label>
                                     <input class="form-control"
-                                           name="data_vencimento"
+                                           name="data_baixa"
                                            type="date">
                                 </div>
                                 <div class="form-group mb-3 col-sm-4">
