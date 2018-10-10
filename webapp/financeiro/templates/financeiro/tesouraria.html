@@ -82,4 +82,99 @@
         </div>
     </div>
 </div>
+<!-- modal view e edit-->
+<div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-header bg-transparent">
+                        <div class="text-muted text-center">
+                            <h2>Cliente</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form role="form" id="form-item">
+                            <h6 class="text-muted">DADOS PRINCIPAIS</h6>
+                            <input name="id_tesouraria" hidden>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-12">
+                                    <label class="label">Nome</label>
+                                    <input class="form-control" placeholder="Nome" type="text" name="identificacao">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Empresa</label>
+                                    <select class="form-control" name="id_empresa">
+                                        <option value="">----------</option>
+                                        {% for empresa in combobox_empresas %}
+                                        <option value="http://localhost:8000/empresas/{{empresa.id_empresa}}/">{{empresa.identificacao}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Fornecedor</label>
+                                    <select class="form-control" name="id_fornecedor">
+                                        <option value="">----------</option>
+                                        {% for fornecedor in combobox_fornecedores %}
+                                        <option value="http://localhost:8000/fornecedores/{{fornecedor.id_fornecedor}}/">{{fornecedor.identificacao}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                             
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Plano de Contas</label>
+                                    <input class="form-control" placeholder="Plano de Contas" name="id_plano_de_contas" type="text">
+                                </div>
+                            
+                            <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Forma de Pagamento</label>
+                                    <select class="form-control" name="id_forma_pagamento">
+                                        <option value="">----------</option>
+                                        {% for forma_pagamento in combobox_formas_pagamento %}
+                                        <option
+                                                value="http://localhost:8000/formas-pagamento/{{forma_pagamento.id_forma_pagamento}}/"
+                                        >
+                                            {{forma_pagamento.descricao}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Numero</label>
+                                    <input class="form-control" placeholder="Numero" name="numero" type="text">
+                                </div>
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Data de Vencimento</label>
+                                    <input class="form-control"
+                                           name="data_vencimento"
+                                           type="date">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Data de Emissao</label>
+                                    <input class="form-control"
+                                           name="data_emissao"
+                                           type="date">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Data de Disponibilidade</label>
+                                    <input class="form-control"
+                                           name="data_disponibilidade"
+                                           type="date">
+                                </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="server" value="{{ server }}" hidden/>
+<input id="model" value="clientes" hidden/>
+<!-- modal view e edit -->
 {% endblock %}
+
