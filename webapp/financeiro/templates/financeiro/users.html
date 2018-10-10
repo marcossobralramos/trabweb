@@ -1,0 +1,124 @@
+{% extends 'financeiro/extends/pagination.html' %}
+
+{% block content_items %}
+<!-- Table -->
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-header border-0">
+                <div class="col-sm-12">
+                    <div class="text-left">
+                        <button
+                                id="btn-add"
+                                class="btn btn-icon btn-2 btn-default"
+                                type="button"
+                                data-toggle="modal" data-target="#modal-view">
+                            <span class="btn-inner--icon"><i class="fa fa-plus"> Adicionar</i></span>
+                        </button>
+                    </div>
+                    <h3 class="mb-0 text-right">Lista de {{ page.title }}</h3>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Nome de Usuário</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col"><i>Ações</i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in items.object_list %}
+                    <tr>
+                        <th scope="row">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{ user.username }}</span>
+                            </div>
+                        </th>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item view"
+                                       onclick="onViewClick(this)"
+                                       item-id="{{ user.id }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Visualizar</a>
+                                    <a class="dropdown-item edit"
+                                       onclick="onEditClick(this)"
+                                       item-id="{{ user.id }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Editar</a>
+                                    <a class="dropdown-item delete"
+                                       onclick="onDeleteClick(this)"
+                                       item-id="{{ user.id }}"
+                                       href="#">Deletar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal view e edit-->
+<div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-header bg-transparent">
+                        <div class="text-muted text-center">
+                            <h2>Usuário</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form role="form" id="form-item">
+                            <h6 class="text-muted">DADOS PRINCIPAIS</h6>
+                            <input name="id" hidden>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Nome de usuário</label>
+                                    <input class="form-control" placeholder="Nome de usuário" type="text" name="username">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">E-mail</label>
+                                    <input class="form-control" placeholder="E-mail" type="email" name="email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Senha</label>
+                                    <input class="form-control" placeholder="Senha" type="password" name="password">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Confirmar senha</label>
+                                    <input class="form-control" placeholder="Confirmar senha" type="password" id="confirm_pass">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar</button>
+                                <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="server" value="{{ server }}" hidden/>
+<input id="model" value="users" hidden/>
+<!-- modal view e edit -->
+{% endblock %}

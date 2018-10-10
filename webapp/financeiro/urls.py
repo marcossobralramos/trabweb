@@ -3,9 +3,14 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    path('', views.dashboard, name='login'),
+    path('', views.users, name='users'),
     path('admin/', admin.site.urls),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('users/', views.users, name='users'),
+    path('users/<int:page_index>', views.users_pagination, name='users'),
+    path('users/view/<int:id>', views.user_view, name='users'),
+    path('users/add/', views.user_add, name='empresas'),
+    path('users/edit/<int:id>', views.user_edit, name='users'),
+    path('users/delete/<int:id>', views.user_delete, name='users'),
     path('empresas/', views.empresas, name='empresas'),
     path('empresas/<int:page_index>', views.empresas_pagination, name='empresas'),
     path('empresas/view/<int:id>', views.empresa_view, name='empresas'),

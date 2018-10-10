@@ -14,22 +14,6 @@ server = "http://127.0.0.1:8001"
 
 
 # Create your views here.
-def dashboard(request):
-    page = {
-        "href": "/dashboard",
-        "title": "Dashboard",
-        "server": server
-    }
-
-    user = get_info_user_auth()
-
-    context = {
-        "descripton": "Dashboard",
-        "page": page,
-        "user": user,
-        "cards": get_info_cards_top(),
-    }
-    return render(request, 'financeiro/dashboard.html', context)
 
 
 def login(request):
@@ -41,6 +25,57 @@ def login(request):
     list_empresa = json.loads(response.content)
     return render(request, 'financeiro/login.html', {})
 
+def users(request):
+    return users_pagination(request, 1)
+
+
+def user_view(request, id):
+    return view("users", id)
+
+
+def user_add(request):
+    return add(request, "users")
+
+
+def user_edit(request, id):
+    return edit(request, id, "users")
+
+
+def user_delete(request, id):
+    return delete(id, "users")
+
+
+def users_pagination(request, page_index):
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url + "/users", headers=headers)
+    list_user = json.loads(response.content)
+    paginator = Paginator(list_user, items_for_page)  # Mostra n empresas por página
+
+    try:
+        users = paginator.page(page_index)
+    except (EmptyPage, InvalidPage):
+        users = paginator.page(paginator.num_pages)
+
+    page = {
+        "href": "/users",
+        "title": "Usuários",
+        "server": server
+    }
+
+    context = {
+        "description": "Usuários",
+        "page": page,
+        "num_pages": paginator.num_pages,
+        "total_itens": len(list_user),
+        "user": get_info_user_auth(),
+        "items": users,
+        "cards": get_info_cards_top(),
+    }
+
+    return render(request, 'financeiro/users.html', context)
 
 def empresas(request):
     return empresas_pagination(request, 1)
@@ -83,7 +118,7 @@ def empresas_pagination(request, page_index):
     }
 
     context = {
-        "descripton": "Empresas",
+        "description": "Empresas",
         "page": page,
         "num_pages": paginator.num_pages,
         "total_itens": len(list_empresa),
