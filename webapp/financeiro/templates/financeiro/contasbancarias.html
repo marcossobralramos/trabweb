@@ -29,32 +29,32 @@
                         <th scope="col">NumeroAgencia</th>
                         <th scope="col">Caixa</th>
                         <th scope="col">Banco</th>
-                        <th scope="col"><i>A��es</i></th>
+                        <th scope="col"><i>Ações</i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    
+
                     {% for contasbancarias in items.object_list %}
                     <tr>
                         <th scope="row">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{ contasbancarias.idContasBancarias }}</span>
+                                <span class="mb-0 text-sm">{{ contasbancarias.id_conta_bancaria }}</span>
                             </div>
                         </th>
-                         <td>
+                        <td>
                             {{ contasbancarias.classificacao }}
                         </td>
                         <td>
-                            {{ contasbancarias.numeroConta }}
+                            {{ contasbancarias.numero_conta }}
                         </td>
                         <td>
-                            {{ contasbancarias.numeroAgencia }}
+                            {{ contasbancarias.numero_agencia }}
                         </td>
-                         <td>
-                            {{ contasbancarias.Caixa }}
+                        <td>
+                            {{ contasbancarias.caixa }}
                         </td>
-                         <td>
-                            {{ contasbancarias.Banco }}
+                        <td>
+                            {{ contasbancarias.banco }}
                         </td>
                         <td class="text-right">
                             <div class="dropdown">
@@ -63,22 +63,33 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" href="#">Visualizar</a>
-                                    <a class="dropdown-item" href="#">Editar</a>
-                                    <a class="dropdown-item" href="#">Deletar</a>
+                                    <a class="dropdown-item view"
+                                       onclick="onViewClick(this)"
+                                       item-id="{{ contasbancarias.id_conta_bancaria }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Visualizar</a>
+                                    <a class="dropdown-item edit"
+                                       onclick="onEditClick(this)"
+                                       item-id="{{ contasbancarias.id_conta_bancaria }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Editar</a>
+                                    <a class="dropdown-item delete"
+                                       onclick="onDeleteClick(this)"
+                                       item-id="{{ contasbancarias.id_conta_bancaria }}"
+                                       href="#">Deletar</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
                     {% endfor %}
-                
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
- 
+
 <!-- modal view e edit-->
 <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
@@ -97,15 +108,16 @@
                             <div class="row">
                                 <div class="form-group mb-3 col-sm-10">
                                     <label class="label">Classificacao</label>
-                                    <input class="form-control" placeholder="Classificacao" type="text" name="classificacao">
+                                    <input class="form-control" placeholder="Classificacao" type="text"
+                                           name="classificacao">
                                 </div>
                             </div>
                             <div class="row">
-                            <div class="form-group mb-3 col-sm-6">
+                                <div class="form-group mb-3 col-sm-6">
                                     <label class="label">Descricao</label>
                                     <input class="form-control" placeholder="Descricao" name="descricao" type="text">
                                 </div>
-                              
+
                             </div>
                             <div class="row">
                                 <div class="form-group mb-3 col-sm-6">
@@ -121,14 +133,14 @@
                                            type="text">
                                 </div>
                             </div>
-                           
-                           
+
+
                             <div class="row">
-                                
-                                  <div class="form-group mb-3 col-sm-6">
+
+                                <div class="form-group mb-3 col-sm-6">
                                     <label class="label">Data Saldo Inicial</label>
                                     <input class="form-control"
-                                           name="data_vencimento"
+                                           name="data_saldo_inicial"
                                            type="date">
                                 </div>
                                 <div class="form-group mb-3 col-sm-6">
@@ -141,26 +153,20 @@
                             <div class="row">
                                 <div class="form-group mb-3 col-sm-5">
                                     <label class="label">Caixa</label>
-                                    <input class="form-control" placeholder="Caixa"
+                                    <input class="form-control" placeholder="caixa"
                                            name="caixa"
                                            type="text">
                                 </div>
                                 <div class="form-group mb-3 col-sm-5">
                                     <label class="label">Banco</label>
                                     <input class="form-control" placeholder="Banco"
-                                           name="municipio"
+                                           name="banco"
                                            type="text">
                                 </div>
-                               
-                            </div>
-                           
-                            
-                            
-                           
-                                
                             </div>
                             <div class="text-center">
-                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar</button>
+                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar
+                                </button>
                                 <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
                             </div>
                         </form>
@@ -171,6 +177,6 @@
     </div>
 </div>
 <input id="server" value="{{ server }}" hidden/>
-<input id="model" value="fornecedores" hidden/>
+<input id="model" value="contas-bancarias" hidden/>
 <!-- modal view e edit -->
 {% endblock %}

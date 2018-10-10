@@ -81,8 +81,8 @@ class ContaBancaria(models.Model):
     numero_agencia = models.CharField(max_length=20)
     data_saldo_inicial = models.CharField(max_length=12)
     saldo_inicial = models.CharField(max_length=14)
-    caixa = models.CharField( max_length=1)
-    banco = models.CharField( max_length=1)
+    caixa = models.CharField(max_length=1)
+    banco = models.CharField(max_length=1)
     
     def __str__(self):
         """String for representing the Model object."""
@@ -108,7 +108,7 @@ class PlanoDeContas(models.Model):
 
 class FormaDePagamento(models.Model):
 
-    id_forma_pagamento = models.CharField(max_length=11)
+    id_forma_pagamento = models.AutoField(primary_key=True, max_length=11)
     descricao = models.CharField(max_length=50)
 
     def __str__(self):

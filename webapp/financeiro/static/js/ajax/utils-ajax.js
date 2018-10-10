@@ -76,10 +76,10 @@ onSaveClick = (id_item = null) => {
 
     ajax.always((response) => {
         if (response.status === 200 && response.readyState === 4) {
-            console.log(response.responseText);
+            swal( "Sucesso!" ,  "Registro cadastrado com sucesso!" ,  "success" );
         }
         else {
-            console.log(response.responseText);
+            swal( "Oopss!" ,  "Houve um erro inesperado. Tente novamente!" ,  "error" );
         }
     });
 

@@ -22,44 +22,39 @@
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
-      
+
                     <tr>
-                        
-                        <th scope="col">ID Tesouraria</th>
-                         <th scope="col">Valor</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Valor</th>
                         <th scope="col">Data de emissaos</th>
                         <th scope="col">Data de vencimento</th>
                         <th scope="col">Data de disponibilidade</th>
-
-                       
-                        <th scope="col"><i>A��es</i></th>
+                        <th scope="col"><i>Ações</i></th>
                     </tr>
                     </thead>
                     <tbody>
 
-                
-                   {% for tesouraria in items.object_list %}
+                    {% for tesouraria in items.object_list %}
                     <tr>
                         <th scope="row">
-                            <div class="media-body">tesouraria
-                                <span class="mb-0 text-sm">{{ tesouraria.idTesouraria }}</span>
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{ tesouraria.id_tesouraria }}</span>
                             </div>
                         </th>
-                       
-                        
+
                         <td>
                             {{ tesouraria.valor }}
                         </td>
-                         <td>
-                            {{ tesouraria.dataEmissao }}
+                        <td>
+                            {{ tesouraria.data_emissao }}
                         </td>
-                         <td>
-                            {{ tesouraria.dataVencimento }}
+                        <td>
+                            {{ tesouraria.data_vencimento }}
                         </td>
-                         <td>
-                            {{ tesouraria.dataDisponibilidade }}
+                        <td>
+                            {{ tesouraria.data_disponibilidade }}
                         </td>
-                       
+
                         <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -67,15 +62,26 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" href="#">Visualizar</a>
-                                    <a class="dropdown-item" href="#">Editar</a>
-                                    <a class="dropdown-item" href="#">Deletar</a>
+                                    <a class="dropdown-item view"
+                                       onclick="onViewClick(this)"
+                                       item-id="{{ tesouraria.id_tesouraria }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Visualizar</a>
+                                    <a class="dropdown-item edit"
+                                       onclick="onEditClick(this)"
+                                       item-id="{{ tesouraria.id_tesouraria }}"
+                                       data-toggle="modal" data-target="#modal-view"
+                                       href="#">Editar</a>
+                                    <a class="dropdown-item delete"
+                                       onclick="onDeleteClick(this)"
+                                       item-id="{{ tesouraria.id_tesouraria }}"
+                                       href="#">Deletar</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
                     {% endfor %}
-                
+
                     </tbody>
                 </table>
             </div>
@@ -90,7 +96,7 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent">
                         <div class="text-muted text-center">
-                            <h2>Cliente</h2>
+                            <h2>Tesouraria</h2>
                         </div>
                     </div>
                     <div class="card-body">
@@ -98,74 +104,89 @@
                             <h6 class="text-muted">DADOS PRINCIPAIS</h6>
                             <input name="id_tesouraria" hidden>
                             <div class="row">
-                                <div class="form-group mb-3 col-sm-12">
-                                    <label class="label">Nome</label>
-                                    <input class="form-control" placeholder="Nome" type="text" name="identificacao">
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Numero do Documento</label>
+                                    <input class="form-control" placeholder="Numero do Documento" name="numero"
+                                           type="text">
                                 </div>
-                            </div>
-                            <div class="row">
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Valor</label>
+                                    <input class="form-control" placeholder="Valor" name="valor"
+                                           type="text">
+                                </div>
                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Empresa</label>
-                                    <select class="form-control" name="id_empresa">
+                                    <select class="form-control" name="id_Empresa">
                                         <option value="">----------</option>
                                         {% for empresa in combobox_empresas %}
-                                        <option value="http://localhost:8000/empresas/{{empresa.id_empresa}}/">{{empresa.identificacao}}</option>
+                                        <option value="http://127.0.0.1:8000/empresas/{{empresa.id_empresa}}/">
+                                            {{empresa.identificacao}}
+                                        </option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                            <div class="form-group mb-3 col-sm-4">
+                            </div>
+                            <div class="row">
+                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Fornecedor</label>
                                     <select class="form-control" name="id_fornecedor">
                                         <option value="">----------</option>
                                         {% for fornecedor in combobox_fornecedores %}
-                                        <option value="http://localhost:8000/fornecedores/{{fornecedor.id_fornecedor}}/">{{fornecedor.identificacao}}</option>
+                                        <option value="http://127.0.0.1:8000/fornecedores/{{fornecedor.id_fornecedor}}/">
+                                            {{fornecedor.identificacao}}
+                                        </option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                             
                                 <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Plano de Contas</label>
-                                    <input class="form-control" placeholder="Plano de Contas" name="id_plano_de_contas" type="text">
+                                    <select class="form-control" name="id_plano_de_contas">
+                                        <option value="">----------</option>
+                                        {% for plano in combobox_planos_conta %}
+                                        <option value="http://127.0.0.1:8000/planos-contas/{{plano.id_plano_de_contas}}/">
+                                            {{plano.descricao}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
-                            
-                            <div class="form-group mb-3 col-sm-4">
+                                <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Forma de Pagamento</label>
                                     <select class="form-control" name="id_forma_pagamento">
                                         <option value="">----------</option>
                                         {% for forma_pagamento in combobox_formas_pagamento %}
                                         <option
-                                                value="http://localhost:8000/formas-pagamento/{{forma_pagamento.id_forma_pagamento}}/"
-                                        >
-                                            {{forma_pagamento.descricao}}
+                                                value="http://127.0.0.1:8000/formas-pagamento/{{forma_pagamento.id_forma_pagamento}}/"
+                                        >{{forma_pagamento.descricao}}
                                         </option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                            
+                            </div>
+                            <div class="row">
                                 <div class="form-group mb-3 col-sm-4">
-                                    <label class="label">Numero</label>
-                                    <input class="form-control" placeholder="Numero" name="numero" type="text">
-                                </div>
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
-                                    <label class="label">Data de Vencimento</label>
-                                    <input class="form-control"
-                                           name="data_vencimento"
-                                           type="date">
-                                </div>
-                                <div class="form-group mb-3 col-sm-6">
                                     <label class="label">Data de Emissao</label>
                                     <input class="form-control"
                                            name="data_emissao"
                                            type="date">
                                 </div>
-                                <div class="form-group mb-3 col-sm-6">
+                                <div class="form-group mb-3 col-sm-4">
+                                    <label class="label">Data de Vencimento</label>
+                                    <input class="form-control"
+                                           name="data_vencimento"
+                                           type="date">
+                                </div>
+                                <div class="form-group mb-3 col-sm-4">
                                     <label class="label">Data de Disponibilidade</label>
                                     <input class="form-control"
                                            name="data_disponibilidade"
                                            type="date">
                                 </div>
-                           
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar
+                                </button>
+                                <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -174,7 +195,7 @@
     </div>
 </div>
 <input id="server" value="{{ server }}" hidden/>
-<input id="model" value="clientes" hidden/>
+<input id="model" value="tesouraria" hidden/>
 <!-- modal view e edit -->
 {% endblock %}
 

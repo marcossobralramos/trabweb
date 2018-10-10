@@ -3,9 +3,14 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    path('', views.dashboard, name='login'),
     path('admin/', admin.site.urls),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('', views.users, name='users'),
+    path('users/', views.users, name='users'),
+    path('users/<int:page_index>', views.users_pagination, name='users'),
+    path('users/view/<int:id>', views.user_view, name='users'),
+    path('users/add/', views.user_add, name='empresas'),
+    path('users/edit/<int:id>', views.user_edit, name='users'),
+    path('users/delete/<int:id>', views.user_delete, name='users'),
     path('empresas/', views.empresas, name='empresas'),
     path('empresas/<int:page_index>', views.empresas_pagination, name='empresas'),
     path('empresas/view/<int:id>', views.empresa_view, name='empresas'),
@@ -55,7 +60,8 @@ urlpatterns = [
     path('lancamentos-a-pagar/edit/<int:id>', views.lancamentos_a_pagar_edit, name='lancamentos_a_pagar'),
     path('lancamentos-a-pagar/delete/<int:id>', views.lancamentos_a_pagar_delete, name='lancamentos_a_pagar'),
     path('lancamentos-a-receber/', views.lancamentos_a_receber, name='lancamentos_a_receber'),
-    path('lancamentos-a-receber/<int:page_index>', views.lancamentos_a_receber_pagination, name='lancamentos_a_receber'),
+    path('lancamentos-a-receber/<int:page_index>', views.lancamentos_a_receber_pagination,
+         name='lancamentos_a_receber'),
     path('lancamentos-a-receber/view/<int:id>', views.lancamentos_a_receber_view, name='lancamentos_a_receber'),
     path('lancamentos-a-receber/add/', views.lancamentos_a_receber_add, name='lancamentos_a_receber'),
     path('lancamentos-a-receber/edit/<int:id>', views.lancamentos_a_receber_edit, name='lancamentos_a_receber'),

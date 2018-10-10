@@ -28,7 +28,6 @@
                         <th scope="col">Telefone</th>
                         <th scope="col">E-mail</th>
                         <th scope="col"><i>Ações</i></th>
-                        
                     </tr>
                     </thead>
                     <tbody>
@@ -49,6 +48,9 @@
                         <td>
                             {{ fornecedor.telefone }}
                         </td>
+                        <td>
+                            {{ fornecedor.email }}
+                        </td>
                         <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -68,7 +70,7 @@
                                        href="#">Editar</a>
                                     <a class="dropdown-item delete"
                                        onclick="onDeleteClick(this)"
-                                       item-id="{{ cliente.id_cliente }}"
+                                       item-id="{{ fornecedor.id_fornecedor }}"
                                        href="#">Deletar</a>
                                 </div>
                             </div>
@@ -89,7 +91,7 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent">
                         <div class="text-muted text-center">
-                            <h2>Cliente</h2>
+                            <h2>Fornecedor</h2>
                         </div>
                     </div>
                     <div class="card-body">

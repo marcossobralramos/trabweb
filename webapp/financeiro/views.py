@@ -7,14 +7,11 @@ from django.http import HttpResponse
 # pagination
 items_for_page = 5
 
-# rest
-url = "http://127.0.0.1:8000"
+# server rest
+url = "http://127.0.0.1:8001"
 
-server = "http://127.0.0.1:8001"
-
-
-# Create your views here.
-
+# server app
+server = "http://127.0.0.1:8000"
 
 def login(request):
     headers = {
@@ -31,7 +28,6 @@ def users(request):
 
 def user_view(request, id):
     return view("users", id)
-
 
 def user_add(request):
     return add(request, "users")
@@ -272,12 +268,12 @@ def contas_bancarias_pagination(request, page_index):
 
     page = {
         "href": "/contas-bancarias",
-        "title": "ContasBancarias",
+        "title": "Contas Bancárias",
         "server": server
     }
 
     context = {
-        "description": "ContasBancarias",
+        "description": "Contas Bancárias",
         "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_contas_bancarias),
@@ -339,7 +335,6 @@ def plano_de_contas_pagination(request, page_index):
     }
     return render(request, 'financeiro/planocontas.html', context)
 
-
 def formas_pagamento(request):
     return formas_pagamento_pagination(request, 1)
 
@@ -376,12 +371,12 @@ def formas_pagamento_pagination(request, page_index):
 
     page = {
         "href": "/formas-pagamento",
-        "title": "FormasPagamento",
+        "title": "Formas de Pagamento",
         "server": server
     }
 
     context = {
-        "descripton": "FormasPagamento",
+        "description": "Formas de Pagamento",
         "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_formas_pagamento),
@@ -426,6 +421,12 @@ def tesouraria_pagination(request, page_index):
     except (EmptyPage, InvalidPage):
         tesouraria = paginator.page(paginator.num_pages)
 
+    # Carregando combobox para o modals
+    combobox_empresas = json.loads(view("empresas", "").content)
+    combobox_fornecedores = json.loads(view("fornecedores", "").content)
+    combobox_formas_de_pagamento = json.loads(view("formas-pagamento", "").content)
+    combobox_planos_conta = json.loads(view("planos-contas", "").content)
+
     page = {
         "href": "/tesouraria",
         "title": "Tesouraria",
@@ -433,13 +434,17 @@ def tesouraria_pagination(request, page_index):
     }
 
     context = {
-        "descripton": "Tesouraria",
+        "description": "Tesouraria",
         "page": page,
         "num_pages": paginator.num_pages,
         "total_items": len(list_tesouraria),
         "user": get_info_user_auth(),
         "items": tesouraria,
         "cards": get_info_cards_top(),
+        "combobox_empresas": combobox_empresas,
+        "combobox_fornecedores": combobox_fornecedores,
+        "combobox_formas_pagamento": combobox_formas_de_pagamento,
+        "combobox_planos_conta": combobox_planos_conta,
     }
     return render(request, 'financeiro/tesouraria.html', context)
 
