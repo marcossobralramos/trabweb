@@ -1,6 +1,10 @@
 let server = $("#server").val();
 let csrftoken = getCookie('csrftoken');
 
+$("#modal-view").on('hidden.bs.modal', () => {
+    document.getElementById("form-item").reset();
+});
+
 $("#btn-add").click(() => {
     $("#form-item").submit((e) => {
         onSaveClick();
