@@ -88,3 +88,8 @@ class LancamentoReceberSerializer(serializers.HyperlinkedModelSerializer):
 class TesourariaSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Tesouraria
+		fields = (
+			'id_tesouraria', 'id_Empresa', 'id_clientes', 'id_plano_de_contas',
+			'id_formas_pagamento', 'id_fornecedor', 'valor', 'numero', 'data_emissao',
+			'data_vencimento', 'data_disponibilidade'
+		)
