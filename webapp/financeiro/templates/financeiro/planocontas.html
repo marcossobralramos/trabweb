@@ -24,11 +24,7 @@
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">ID Plano de Contas</th>
-                        <th scope="col">ID Contas Bancarias</th>
-                        <th scope="col">Tipo Conta</th>
-                        <th scope="col">Classificacao</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Fornecedor</th>
+                        
                         <th scope="col">EntradaRecurso</th>
                         <th scope="col">SaidaRecurso</th>
                         <th scope="col">Caixa</th>
@@ -46,21 +42,7 @@
                                 <span class="mb-0 text-sm">{{ planocontas.idPlanodeContas }}</span>
                             </div>
                         </th>
-                        <td>
-                            {{ planocontas.idContasBancarias }}
-                        </td>
-                         <td>
-                            {{ planocontas.tipoConta }}
-                        </td>
-                        <td>
-                            {{ planocontas.classificacao }}
-                        </td>
-                        <td>
-                            {{ planocontas.cliente }}
-                        </td>
-                         <td>
-                            {{ planocontas.fornecedor }}
-                        </td>
+                       
                         
                         <td>
                             {{ planocontas.entradaRecurso }}
@@ -96,4 +78,99 @@
         </div>
     </div>
 </div>
+ 
+<!-- modal view e edit-->
+<div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-header bg-transparent">
+                        <div class="text-muted text-center">
+                            <h2>Conta Bancaria</h2>
+                        </div>
+                    </div>
+         
+                    <div class="card-body">
+                        <form role="form" id="form-item">
+                            <h6 class="text-muted">DADOS PRINCIPAIS</h6>
+                            <input name="idPlanodeContas" hidden>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-10">
+                                    <label class="label">Classificacao</label>
+                                    <input class="form-control" placeholder="Classificacao" type="text" name="classificacao">
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Descricao</label>
+                                    <input class="form-control" placeholder="Descricao" name="descricao" type="text">
+                                </div>
+                              
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Tipo Conta</label>
+                                    <input class="form-control" placeholder="Tipo Conta"
+                                           name="tipo_conta"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Cliente</label>
+                                    <input class="form-control" placeholder="Cliente"
+                                           name="cliente"
+                                           type="text">
+                                </div>
+                            </div>
+                           
+                           
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Fornecedor</label>
+                                    <input class="form-control" placeholder="Fornecedor"
+                                           name="fornecedor"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label class="label">Entrada Recurso</label>
+                                    <input class="form-control" placeholder="Entrada "
+                                           name="entrada_recurso"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mb-3 col-sm-5">
+                                    <label class="label">Caixa</label>
+                                    <input class="form-control" placeholder="Caixa"
+                                           name="caixa"
+                                           type="text">
+                                </div>
+                                <div class="form-group mb-3 col-sm-5">
+                                    <label class="label">Banco</label>
+                                    <input class="form-control" placeholder="Banco"
+                                           name="municipio"
+                                           type="text">
+                                </div>
+                               
+                            </div>
+                           
+                            
+                            
+                           
+                                
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" onclick="location.reload()">Fechar</button>
+                                <button type="submit" id="save" class="btn btn-primary my-4">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="server" value="{{ server }}" hidden/>
+<input id="model" value="fornecedores" hidden/>
+<!-- modal view e edit -->
 {% endblock %}
